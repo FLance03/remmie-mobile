@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './Stars.dart';
+import 'Stars.dart';
 
 class HotelItem extends StatelessWidget {
   // This widget is the root of your application.

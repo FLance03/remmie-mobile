@@ -1,4 +1,4 @@
-package com.example.homepage_hotel
+package com.example.Remmie
 
 import io.flutter.embedding.android.FlutterActivity
 

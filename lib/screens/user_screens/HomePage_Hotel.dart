@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/Stars.dart';
-import '../widgets/DisplayDrawer.dart';
-import '../widgets/HotelList.dart';
-import '../widgets/HotelItem.dart';
+import '../../widgets/widgets.dart';
 
 class HomePage_Hotel extends StatelessWidget {
   // This widget is the root of your application.
