@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'screens/screens.dart';
+
+//Screens as String Variables
+const Login = '/';
+const Signup = '/Signup';
+const Home = '/Home';
+const Hotels = '/Hotels';
+
+void main() => runApp(MaterialApp(
+  onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
+  theme: _theme(),
+));
+
+ThemeData _theme() {
+  return ThemeData(
+    primaryColor: Colors.white,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
+}
+
+RouteFactory _routes() {
+  return (settings) {
+    // final Map<String, dynamic> arguments = settings.arguments;
+    Widget screen; //Screen to Load
+    switch (settings.name) {
+      case Login:
+        screen = LoginPage();
+        break;
+      case Signup:
+        screen = SignupPage();
+        break;
+      case Home:
+        screen = HomePage();
+        break;
+      case Hotels:
+        screen = HomePage_Hotel();
+        break;
+      default:
+        return null;
+    }
+    return MaterialPageRoute(builder: (BuildContext context) => screen);
+  };
+}
+
+
