@@ -7,9 +7,9 @@ class HomeAnnouncement extends StatelessWidget {
   Widget build(BuildContext context) {
     return HomeCard(
       image: 'assets/fireworks.jpg',
-      title: 'Cargotell Travellinn',
+      title: 'Sinugba With Us Tonight',
       description: 'October 26, 2020',
-      subDescription: '9:00 PM - 9:10 PM',
+      subDescription: '9:00 PM - 12:00 AM',
     );
   }
 }

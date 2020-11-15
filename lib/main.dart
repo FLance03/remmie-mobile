@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'screens/screens.dart';
 
 //Screens as String Variables
+const TestRoute = '/';
 const Login = '/Login';
 const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
-
-const TestRoute = '/';
 
 const HomeLoggedIn = '/HomeLoggedIn';
 const HomeLoggedOut = '/HomeLoggedOut';
@@ -30,16 +29,13 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
-        screen = HomePage_Board();
+        screen = HomePage();
         break;
       case Login:
         screen = LoginPage();
         break;
       case Signup:
         screen = SignupPage();
-        break;
-      case HomeLoggedIn:
-        screen = HomePage_Board();
         break;
       case Home:
         screen = HomePage();

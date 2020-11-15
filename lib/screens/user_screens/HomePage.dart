@@ -1,41 +1,70 @@
 import 'package:flutter/material.dart';
+import '../../widgets/widgets.dart';
 
+// class HomePage extends StatefulWidget {
+//   @override
+//   _HomePageState createState() => _HomePageState();
+// }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+// class _HomePageState extends State<HomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//           child: Container(
+        
+//       ),
+//     );
+//   }
+// }
 
-class _HomePageState extends State<HomePage> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'remmie',
-            style: TextStyle(
-              letterSpacing: 1.0,
-              color: Colors.black,
-            )),
-          centerTitle: true,
-          // backgroundColor: Colors.red[600],
-        ),
-        resizeToAvoidBottomPadding: false,
-        body: Center(
-          child: Container(
-            color: Color(0xFFF2F2F2),
-            padding: EdgeInsets.symmetric(vertical: 80.0),
-            constraints: BoxConstraints.expand(),
-            child: Column(
-              children: <Widget>[
-                Text('hello world')
-              ],
-            ),
-          ),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TESTTT'),
       ),
+      body: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (BuildContext context,int index){
+          if (index>=2){
+            return HomeAnnouncement();
+          }else if (index==1) {
+            return Container(
+              margin: EdgeInsets.only(
+                left: 60,
+                right: 60,
+                bottom: 30,
+              ),
+              child: ElevatedButton(
+                child: Text(
+                  "ROOM SERVICE",
+                  style: TextStyle(
+                    fontSize: 25,
+                  )
+                ),
+                onPressed: (){
+
+                },
+              ),
+            );
+          }else {
+            return DashboardCard(
+              status: "BOOKED",
+              notificationsCnt: 1,
+              image: "assets/qrcode.png",
+            );
+          }
+        },
+      ),
+      bottomNavigationBar: BottomNavBar(currentIndex: 0),
+      endDrawer: DisplayDrawer(
+        items:[
+          'Home',
+          'Item 1',
+          'Item 2',
+        ],
+        current:'Home',),
     );
   }
 }
