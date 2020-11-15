@@ -7,28 +7,27 @@ class RoomServicePage2 extends StatelessWidget {
     return FoodsBeverages();
   }
 }
-class LineItem {
-  String name;
+class Line_Items {
+  Products product;
   int quantity;
-  double price;
 
-  LineItem({@required this.name,@required this.quantity,@required this.price});
+  Line_Items({@required this.product,@required this.quantity});
 
   double getLinePrice(){
-    double retVal = quantity*price;
+    double retVal = quantity*product.price;
     retVal = double.parse(retVal.toStringAsFixed(2));
     return retVal;
   }
 }
 class Cart {
-  List<LineItem> cartContents;
+  List<Line_Items> lineItems;
 
-  Cart([List<LineItem> cartContents]) {
-    this.cartContents = cartContents==null ? [] : cartContents;
+  Cart([List<Line_Items> lineItems]) {
+    this.lineItems = lineItems==null ? [] : lineItems;
   }
 
   double getTotalPrice() {
-    return cartContents.fold(0, (prev, lineItem) => prev+lineItem.getLinePrice());
+    return lineItems.fold(0, (prev, lineItem) => prev+lineItem.getLinePrice());
   }
 }
 class FoodsBeverages extends StatefulWidget {
@@ -45,10 +44,31 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
     this.inCart = new Cart();
   }
 
-  void callback({@required String name,@required int quantity,@required double price}) {
-    setState((){
-      inCart.cartContents.add(new LineItem(name: name, quantity: quantity, price: price));
-    });
+  void callback({@required Products product,@required incrementDecrement action}) {
+    int indexCart;
+
+    indexCart = inCart.lineItems.indexWhere((lineItem)=> lineItem.product.id==product.id);
+    if (indexCart == -1 && action == incrementDecrement.increment){
+      setState((){
+        inCart.lineItems.add(new Line_Items(product:product, quantity:1));
+      });
+    }else if (indexCart != -1){
+      if(action == incrementDecrement.increment){
+        setState((){
+          inCart.lineItems[indexCart].quantity += 1;
+        });
+      }else {
+        if (inCart.lineItems[indexCart].quantity == 1){
+          setState(() {
+            inCart.lineItems.removeAt(indexCart);
+          });
+        }else {
+          setState(() {
+            inCart.lineItems[indexCart].quantity -= 1;
+          });
+        }
+      }
+    }
   }
   @override
   Widget build(BuildContext outContext) {
@@ -65,7 +85,7 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
                 tabs: <Tab>[Tab(text:'Foods'),Tab(text:'Beverages')],
               ),
             ),
-            body: SizedBox.expand(
+            body: Container(
               child: Column(
                 children: [
                   Expanded(
@@ -100,7 +120,7 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
                                 ),
                                 child: ListView.builder(
                                   controller: scrollController,
-                                  itemCount: inCart.cartContents.length+1,
+                                  itemCount: inCart.lineItems.length+1,
                                   itemBuilder: (BuildContext context, int index) {
                                     if (index==0){
                                       return ListTile(
@@ -113,9 +133,9 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
                                     return ListTile(
                                       title: Row(
                                         children:[
-                                          Expanded(child: Text('${inCart.cartContents[index-1].name}')),
-                                          Expanded(child: Text('${inCart.cartContents[index-1].price}')),
-                                          Expanded(child: Text('${inCart.cartContents[index-1].getLinePrice()}')),
+                                          Expanded(child: Text('${inCart.lineItems[index-1].product.name}')),
+                                          Expanded(child: Text('${inCart.lineItems[index-1].product.price}')),
+                                          Expanded(child: Text('${inCart.lineItems[index-1].getLinePrice()}')),
                                         ]
                                       ),
                                     );
