@@ -21,8 +21,8 @@ ThemeData _theme() {
 
 RouteFactory _routes() {
   return (settings) {
-    // final Map<String, dynamic> arguments = settings.arguments;
-    Widget screen; //Screen to Load
+    // final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
+    Widget screen;
     switch (settings.name) {
       case Login:
         screen = LoginPage();
@@ -34,7 +34,7 @@ RouteFactory _routes() {
         screen = HomePage();
         break;
       case Hotels:
-        screen = HomePage_Hotel();
+        screen = HotelsPage();
         break;
       default:
         return null;
