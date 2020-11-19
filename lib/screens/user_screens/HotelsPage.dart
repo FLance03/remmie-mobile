@@ -45,6 +45,7 @@ class HotelsPage extends StatelessWidget {
           ],
           current:'Home',
         ),
+        bottomNavigationBar: BottomNavBar(currentIndex: 1),
       ),
     );
   }

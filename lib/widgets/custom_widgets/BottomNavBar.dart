@@ -19,11 +19,11 @@ class BottomNavBar extends StatelessWidget {
       currentIndex: currentIndex,
       selectedItemColor: Colors.blue,
       onTap: (int index){
-        if (index!=currentIndex){
-          if (index==1){
+        if (index != currentIndex){
+          if (index == 1){
             Navigator.pushReplacementNamed(context, '/Hotels');
           }else {
-            Navigator.pushReplacementNamed(context, '/HomeLoggedIn'); // CHECK IF LOGIN OR LOGOUT
+            Navigator.pushReplacementNamed(context, '/Home'); 
           }
         }
       },

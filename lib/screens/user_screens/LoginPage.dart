@@ -16,15 +16,15 @@ class _LoginPageState extends State<LoginPage> {
         body: Center(
           child: Container(
             color: Color(0xFFF2F2F2),
-            padding: EdgeInsets.symmetric(vertical: 80.0),
+            padding: EdgeInsets.symmetric(vertical: 150.0),
             constraints: BoxConstraints.expand(),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     child: Container(
                         child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(bottom: 10.0),
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                     )),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 75.0),
+                    padding: EdgeInsets.only(bottom: 30.0),
                     child: Form(
                       key: formKey,
                       child: Column(
@@ -78,7 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 17.0,
                             fontWeight: FontWeight.w500,
                             color: Color(0xFF2F2F2F),
-                          )),
+                          )
+                      ),
                     ),
                   ),
                   Container(
@@ -99,7 +100,8 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
-                ]),
+                ]
+              ),
           ),
         ),
       ),

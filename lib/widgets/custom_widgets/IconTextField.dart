@@ -9,7 +9,9 @@ class IconTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 40.0),
+        // width: 20.0,
+        height: 35.0,
+        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
         child: TextFormField(
           decoration: InputDecoration(
             fillColor: Colors.black,
@@ -21,7 +23,7 @@ class IconTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
             ),
             hintText: this.hintText,
-            contentPadding: EdgeInsets.only(top: 20),
+            contentPadding: EdgeInsets.only(top: 20.0),
             prefixIcon: Icon(
               this.icon,
               color: Colors.black,

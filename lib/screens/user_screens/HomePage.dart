@@ -40,7 +40,6 @@ class HomePage extends StatelessWidget {
               }
             },
           ),
-          bottomNavigationBar: BottomNavBar(currentIndex: 0),
           endDrawer: DisplayDrawer(
             items: [
               'Home',
@@ -49,6 +48,7 @@ class HomePage extends StatelessWidget {
             ],
             current: 'Home',
           ),
+          bottomNavigationBar: BottomNavBar(currentIndex: 0),
         ),
       );
     } else {
