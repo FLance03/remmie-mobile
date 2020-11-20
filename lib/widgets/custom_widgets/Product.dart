@@ -56,7 +56,12 @@ class _ProductState extends State<Product> with AutomaticKeepAliveClientMixin<Pr
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(this.widget.name),
-                  Text('Php'+this.widget.price.toStringAsFixed(2)+'/serving'),
+                  Text(
+                    '₱'+this.widget.price.toStringAsFixed(2)+'/serving',
+                    style: TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
                   Text(this.widget.description),
                 ],
               ),
