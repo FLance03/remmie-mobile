@@ -86,78 +86,98 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
               ),
             ),
             body: Container(
-              child: Column(
+              child: Stack(
                 children: [
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        Tabs(
-                          section: "Foods",
-                          updateHandle: callback,
-                        ),
-                        Tabs(
-                          section: "Beverages",
-                          updateHandle: callback,
-                        ),
-                      ],
-                    ),
+                  TabBarView(
+                    children: [
+                      Tabs(
+                        section: "Foods",
+                        updateHandle: callback,
+                      ),
+                      Tabs(
+                        section: "Beverages",
+                        updateHandle: callback,
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: DraggableScrollableSheet(
-                      initialChildSize: 0.5,
-                      minChildSize: 0.5,
-                      maxChildSize: 1,
-                      builder: (BuildContext context, ScrollController scrollController){
-                        return Column(
-                          children: [
-                            Expanded(
-                              flex: 6,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    top: BorderSide(width: 1.5, color: const Color(0xFF000000)),
+                  DraggableScrollableSheet(
+                    initialChildSize: 0.2,
+                    minChildSize: 0.1,
+                    maxChildSize: 0.5,
+                    builder: (BuildContext context, ScrollController scrollController){
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            top: BorderSide(color: Colors.black),
+                          ),
+                        ),
+                        child: ListView.builder(
+                          controller: scrollController,
+                          itemCount: inCart.lineItems.length+3,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index==0){
+                              return ListTile(
+                                title: Text(
+                                  'Your Cart',
+                                  style: TextStyle(
+                                    fontSize: 14,
                                   ),
                                 ),
-                                child: ListView.builder(
-                                  controller: scrollController,
-                                  itemCount: inCart.lineItems.length+1,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    if (index==0){
-                                      return ListTile(
-                                        title: Text(
-                                          'Your Cart:',
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                        ),
-                                      );
-                                    }
-                                    return ListTile(
-                                      title: Row(
-                                        children:[
-                                          Expanded(child: Text('${inCart.lineItems[index-1].product.name}')),
-                                          Expanded(child: Text('${inCart.lineItems[index-1].product.price}')),
-                                          Expanded(child: Text('${inCart.lineItems[index-1].getLinePrice()}')),
-                                        ]
+                              );
+                            }else if (index < inCart.lineItems.length+1){
+                              return ListTile(
+                                title: Row(
+                                  children:[
+                                    Expanded(
+                                      flex: 5,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 10),
+                                        child: Text('${inCart.lineItems[index-1].product.name}'),
                                       ),
-                                    );
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text('${inCart.lineItems[index-1].quantity}')
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        '₱${inCart.lineItems[index-1].getLinePrice()}',
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                              );
+                            }else if (index < inCart.lineItems.length+2){
+                              return Center(
+                                child: Text(
+                                  'TOTAL: ₱${inCart.getTotalPrice().toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                )
+                              );
+                            }else {
+                              return Container(
+                                margin: EdgeInsets.symmetric(horizontal: 100),
+                                child: ElevatedButton(
+                                  child: Text("CHECKOUT"),
+                                  onPressed: (){
+                                    
                                   },
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  'Total: ${inCart.getTotalPrice().toStringAsFixed(2)}',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )
-                              ),
-                            ),
-                          ]
-                        );
-                        // Container(child:Text('a'));
-                      },
-                    ),
+                              );
+                            }
+                          },
+                        ),
+                      );
+                    },
                   ),
-                  // Text('${count}'),
                 ],
               ),
             ),

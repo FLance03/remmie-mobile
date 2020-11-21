@@ -4,8 +4,8 @@ import '../../widgets/widgets.dart';
 // typedef UpdateCart<T> = void Function({@required String name,@required int quantity,@required double price});
 
 class Tabs extends StatefulWidget {
-  String section;
-  UpdateHandle updateHandle;
+  final String section;
+  final UpdateHandle updateHandle;
 
   Tabs({@required this.section,@required this.updateHandle});
 
@@ -27,7 +27,7 @@ class _TabsState extends State<Tabs> {
         children: [
           Product(
             id: 1,
-            name: 'Grilled Burger',
+            name: 'Grilled Burgers',
             imageLocation: 'assets/grilled_burger.PNG',
             price: 185.5,
             description: '2 Patty Burger',
@@ -79,6 +79,43 @@ class _TabsState extends State<Tabs> {
             stock: 10,
             updateHandle: this.widget.updateHandle,
           ),
+          Product(
+            id: 12,
+            name: 'Noodles',
+            imageLocation: 'assets/noodles.PNG',
+            price: 70.50,
+            description: 'Its Long',
+            stock: 10,
+            updateHandle: this.widget.updateHandle,
+          ),
+          Product(
+            id: 12,
+            name: 'Noodles',
+            imageLocation: 'assets/noodles.PNG',
+            price: 70.50,
+            description: 'Its Long',
+            stock: 10,
+            updateHandle: this.widget.updateHandle,
+          ),
+          Product(
+            id: 12,
+            name: 'Noodles',
+            imageLocation: 'assets/noodles.PNG',
+            price: 70.50,
+            description: 'Its Long',
+            stock: 10,
+            updateHandle: this.widget.updateHandle,
+          ),
+          Product(
+            id: 12,
+            name: 'Noodles',
+            imageLocation: 'assets/noodles.PNG',
+            price: 70.50,
+            description: 'Its Long',
+            stock: 10,
+            updateHandle: this.widget.updateHandle,
+          ),
+          SizedBox(height:50), // Placeholder since DraggableScrollableSheet may cover the last product
         ],
       );
     }else {
@@ -102,6 +139,7 @@ class _TabsState extends State<Tabs> {
             stock: 15,
             updateHandle: this.widget.updateHandle,
           ),
+          SizedBox(height:50), // Placeholder since DraggableScrollableSheet may cover the last product
         ],
       );
     }
