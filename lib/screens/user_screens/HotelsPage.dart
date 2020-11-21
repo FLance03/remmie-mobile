@@ -6,15 +6,7 @@ class HotelsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'remmie',
-            style: TextStyle(
-              letterSpacing: 1.0,
-              color: Colors.black,
-            )),
-          centerTitle: true,
-        ),
+        appBar: CustomAppBar(),
         body: HotelList(
           hotels: [
             HotelItem(
@@ -37,14 +29,7 @@ class HotelsPage extends StatelessWidget {
             ),
           ]
         ),
-        endDrawer: DisplayDrawer(
-          items:[
-            'Logout',
-            'Item 1',
-            'Item 2',
-          ],
-          current:'Home',
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(currentIndex: 1),
       ),
     );

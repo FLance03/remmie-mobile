@@ -10,14 +10,7 @@ class HotelDetailsPage extends StatelessWidget {
         body: Container(
           
         ),
-        endDrawer: DisplayDrawer(
-          items:[
-            'Logout',
-            'Item 1',
-            'Item 2',
-          ],
-          current:'Home',
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(currentIndex: 1),
       ),
     );
