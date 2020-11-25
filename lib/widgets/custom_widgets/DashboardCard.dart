@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 
 class DashboardCard extends StatelessWidget {
   final String status, image;
-  final int notificationsCnt;
 
-  DashboardCard({@required this.status, this.image, this.notificationsCnt});
+  DashboardCard({@required this.status, this.image});
   Widget build(BuildContext context) {
     print(this.status);
     if (this.status == "BOOKED") {
-      
       return Container(
         color: Colors.transparent,
         margin: EdgeInsets.only(
@@ -27,59 +25,25 @@ class DashboardCard extends StatelessWidget {
               ),
               child: Row(
                 children: [
+                  Text('STATUS'),
                   Expanded(
-                    flex: 7,
-                    child: Text('STATUS'),
-                  ),
-                  Expanded(
-                    flex: 3,
                     child: Text(
-                      status,
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    status,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
+                  ))
                 ],
               ),
             ),
             Container(
+              height: 45.0,
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Color(0xFF2F2F2F),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 9,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 25.0),
-                        child: Text(
-                          'View Notifications',
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              letterSpacing: 1.0,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Center(
-                      child: Container(
-                        padding: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(notificationsCnt.toString()),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
             Container(
@@ -122,20 +86,17 @@ class DashboardCard extends StatelessWidget {
               ),
               child: Row(
                 children: [
+                  Text('STATUS'),
                   Expanded(
-                    flex: 7,
-                    child: Text('STATUS'),
-                  ),
-                  Expanded(
-                    flex: 3,
                     child: Text(
-                      status,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    status,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
+                  ))
                 ],
               ),
             ),

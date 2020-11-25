@@ -43,13 +43,14 @@ class HomePage extends StatelessWidget {
               } else {
                 return DashboardCard(
                   status: "BOOKED",
-                  notificationsCnt: 1,
                   image: "assets/qrcode.png",
                 );
               }
             },
           ),
-          endDrawer: DisplayDrawer(),
+          endDrawer: DisplayDrawer(
+            notificationsCnt: 1,
+          ),
           bottomNavigationBar: BottomNavBar(currentIndex: 0),
         ),
       );
@@ -61,7 +62,9 @@ class HomePage extends StatelessWidget {
           body: DashboardCard(
             status: "NOT BOOKED",
           ),
-          endDrawer: DisplayDrawer(),
+          endDrawer: DisplayDrawer(
+            notificationsCnt: 1,
+          ),
           bottomNavigationBar: BottomNavBar(currentIndex: 0),
         ),
       );

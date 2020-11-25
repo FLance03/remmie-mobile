@@ -1,24 +1,54 @@
 import 'package:flutter/material.dart';
 
 class DisplayDrawer extends StatelessWidget {
+  final int notificationsCnt;
+  DisplayDrawer({@required this.notificationsCnt});
+
   Widget build(BuildContext context) {
     return Drawer(
         child: Column(
       children: <Widget>[
         ListTile(
-          title: Text('Logout'),
+          title: Text('Profile'),
           onTap: () {
             // Navigator.pop(context);
           },
         ),
         ListTile(
-          title: Text('SAMPLE BUTTON 2'),
-          onTap: () {
-            // Navigator.pop(context);
-          },
-        ),
+            title: Text('Logout'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+              //Logout condition
+            }),
         ListTile(
-          title: Text('SAMPLE BUTTON 3'),
+          title: Container(
+            child: Row(
+              children: <Widget>[
+                Text("Notifications"),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        notificationsCnt.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           onTap: () {
             // Navigator.pop(context);
           },
