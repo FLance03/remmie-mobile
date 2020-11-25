@@ -1,92 +1,127 @@
 import 'package:flutter/material.dart';
 
 class DashboardCard extends StatelessWidget {
-  final String status,image;
-  final int notificationsCnt;
+  final String status, image;
 
-  DashboardCard({@required this.status,@required this.image,@required this.notificationsCnt});
+  DashboardCard({@required this.status, this.image});
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      margin: EdgeInsets.symmetric(
-        vertical: 15,
-        horizontal: 20,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 7,
-                  child: Text('STATUS'),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Text(
+    print(this.status);
+    if (this.status == "BOOKED") {
+      return Container(
+        color: Colors.transparent,
+        margin: EdgeInsets.only(
+          top: 40,
+          left: 20,
+          right: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+              ),
+              child: Row(
+                children: [
+                  Text('STATUS'),
+                  Expanded(
+                    child: Text(
                     status,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.right,
                     style: TextStyle(
-                      color: status=='BOOKED' ? Colors.green : Colors.red,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-              ],
+                  ))
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.blue,
+            Container(
+              height: 45.0,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Color(0xFF2F2F2F),
+              ),
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 9,
-                  child: Center(
-                    child: Text('View Notifications'),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Center(
-                    child: Container(
-                    padding: EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(notificationsCnt.toString()),
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 30,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(10)),
+              ),
+              child: Image.asset(
+                image,
+                width: 300,
+                height: 300,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        color: Colors.transparent,
+        margin: EdgeInsets.only(
+          top: 40,
+          left: 20,
+          right: 20,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+              ),
+              child: Row(
+                children: [
+                  Text('STATUS'),
+                  Expanded(
+                    child: Text(
+                    status,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-              ],
+                  ))
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 5,
-              horizontal: 30,
+            Container(
+              height: 45.0,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Color(0xFF2F2F2F),
+              ),
             ),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            Container(
+              height: 250.0,
+              padding: EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 30,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(10)),
+              ),
             ),
-            child: Image.asset(
-              image,
-              width: 300,
-              height: 300,
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
   }
-  
 }

@@ -21,38 +21,53 @@ class HomePage extends StatelessWidget {
                   margin: EdgeInsets.only(
                     left: 60,
                     right: 60,
-                    bottom: 30,
+                    bottom: 35,
+                    top: 20
                   ),
-                  child: ElevatedButton(
-                    child: Text("ROOM SERVICE",
-                        style: TextStyle(
-                          fontSize: 25,
-                        )),
+                  child: FlatButton(
+                    height: 50.0,
                     onPressed: () {},
+                    color: Color(0xFF2F2F2F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text('ROOM SERVICE',
+                        style: TextStyle(
+                          letterSpacing: 1.0,
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        )),
                   ),
                 );
               } else {
                 return DashboardCard(
                   status: "BOOKED",
-                  notificationsCnt: 1,
                   image: "assets/qrcode.png",
                 );
               }
             },
           ),
           endDrawer: DisplayDrawer(
-            items: [
-              'Home',
-              'Item 1',
-              'Item 2',
-            ],
-            current: 'Home',
+            notificationsCnt: 1,
           ),
           bottomNavigationBar: BottomNavBar(currentIndex: 0),
         ),
       );
     } else {
-      return Scaffold(resizeToAvoidBottomPadding: false, body: Container());
+      return SafeArea(
+        child: Scaffold(
+          appBar: CustomAppBar(),
+          resizeToAvoidBottomPadding: false,
+          body: DashboardCard(
+            status: "NOT BOOKED",
+          ),
+          endDrawer: DisplayDrawer(
+            notificationsCnt: 1,
+          ),
+          bottomNavigationBar: BottomNavBar(currentIndex: 0),
+        ),
+      );
     }
   }
 }

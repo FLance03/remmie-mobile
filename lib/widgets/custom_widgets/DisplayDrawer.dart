@@ -1,47 +1,59 @@
 import 'package:flutter/material.dart';
 
 class DisplayDrawer extends StatelessWidget {
-  final String current;
-  final List<String> items;
+  final int notificationsCnt;
+  DisplayDrawer({@required this.notificationsCnt});
 
-  DisplayDrawer({@required this.items, this.current});
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView.builder(
-        itemCount: items.length + 1,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            );
-          }
-          index -= 1;
-          int selectedIndex = items.indexOf(current);
-          return ListTile(
-            title: Text(items[index]),
-            selected: selectedIndex == index,
-          );
-        },
-      ),
-      // padding: EdgeInsets.zero,
-      // children: <Widget>[
-
-      //   ListTile(
-      //     title: Text('Home'),
-      //   ),
-      //   ListTile(
-      //     title: Text('Item 1'),
-      //   ),
-      //   ListTile(
-      //     title: Text('Exit'),
-      //     onTap: (){
-      //       Navigator.pop(context);
-      //     },
-      //   ),
-      // ],
-    );
+        child: Column(
+      children: <Widget>[
+        ListTile(
+          title: Text('Profile'),
+          onTap: () {
+            // Navigator.pop(context);
+          },
+        ),
+        ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+              //Logout condition
+            }),
+        ListTile(
+          title: Container(
+            child: Row(
+              children: <Widget>[
+                Text("Notifications"),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        notificationsCnt.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          onTap: () {
+            // Navigator.pop(context);
+          },
+        ),
+      ],
+    ));
   }
 }

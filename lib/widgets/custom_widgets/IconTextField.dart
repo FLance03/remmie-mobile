@@ -11,7 +11,7 @@ class IconTextField extends StatelessWidget {
     return Container(
         // width: 20.0,
         height: 35.0,
-        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+        margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 40.0),
         child: TextFormField(
           decoration: InputDecoration(
             fillColor: Colors.black,

@@ -8,15 +8,10 @@ class HotelDetailsPage extends StatelessWidget {
       child: Scaffold(
         appBar: CustomAppBar(),
         body: Container(
-          
+            
         ),
         endDrawer: DisplayDrawer(
-          items:[
-            'Logout',
-            'Item 1',
-            'Item 2',
-          ],
-          current:'Home',
+          notificationsCnt: 1,
         ),
         bottomNavigationBar: BottomNavBar(currentIndex: 1),
       ),

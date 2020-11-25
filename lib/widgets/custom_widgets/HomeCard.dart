@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HomeCard extends StatelessWidget {
-  final String image,title,description,subDescription;
+  final String image, title, description, subDescription;
   final Widget rightWidget;
 
-  HomeCard({this.image,this.title,this.description,this.subDescription,this.rightWidget});
+  HomeCard(
+      {this.image,
+      this.title,
+      this.description,
+      this.subDescription,
+      this.rightWidget});
   Widget build(BuildContext build) {
     return Column(
       children: [
@@ -15,51 +20,48 @@ class HomeCard extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         Container(
-          child:Column(
+          child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(left:32, right:32, top:16, bottom:4),
+                padding: const EdgeInsets.only(
+                    left: 30, right: 30, top: 20, bottom: 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Container(
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 16,
-                          )
-                        ),
+                        child: Text(title,
+                            style: TextStyle(
+                              fontSize: 16,
+                            )),
                       ),
                     ),
-                    rightWidget!=null ? rightWidget : Container(),
+                    rightWidget != null ? rightWidget : Container(),
                   ],
                 ),
               ),
               Container(
                 alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left:32, right:32, top:4, bottom:15),
+                padding: const EdgeInsets.only(
+                    left: 32, right: 32, top: 4, bottom: 15),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        description,
-                        style: TextStyle(
-                          fontSize: 12,
-                        )
-                      ),
-                      subDescription!=null ? Text(
-                        subDescription,
-                        style: TextStyle(
-                          fontSize: 12,
-                        )
-                      ) : Container(),
-                    ]
-                ),
+                      Text(description,
+                          style: TextStyle(
+                            fontSize: 12,
+                          )),
+                      subDescription != null
+                          ? Text(subDescription,
+                              style: TextStyle(
+                                fontSize: 12,
+                              ))
+                          : Container(),
+                    ]),
               ),
             ],
           ),
         ),
       ],
     );
-  } 
+  }
 }
