@@ -7,11 +7,11 @@ class RoomServicePage2 extends StatelessWidget {
     return FoodsBeverages();
   }
 }
-class Line_Items {
+class LineItems {
   Products product;
   int quantity;
 
-  Line_Items({@required this.product,@required this.quantity});
+  LineItems({@required this.product,@required this.quantity});
 
   double getLinePrice(){
     double retVal = quantity*product.price;
@@ -20,9 +20,9 @@ class Line_Items {
   }
 }
 class Cart {
-  List<Line_Items> lineItems;
+  List<LineItems> lineItems;
 
-  Cart([List<Line_Items> lineItems]) {
+  Cart([List<LineItems> lineItems]) {
     this.lineItems = lineItems==null ? [] : lineItems;
   }
 
@@ -50,7 +50,7 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
     indexCart = inCart.lineItems.indexWhere((lineItem)=> lineItem.product.id==product.id);
     if (indexCart == -1 && action == incrementDecrement.increment){
       setState((){
-        inCart.lineItems.add(new Line_Items(product:product, quantity:1));
+        inCart.lineItems.add(new LineItems(product:product, quantity:1));
       });
     }else if (indexCart != -1){
       if(action == incrementDecrement.increment){

@@ -16,10 +16,10 @@ class Products {
   Products({@required this.id,@required this.name,@required this.price});
 }
 class Product extends StatefulWidget {
-  String imageLocation,name,description;
-  double price;
-  int id,stock;
-  UpdateHandle updateHandle;
+  final String imageLocation,name,description;
+  final double price;
+  final int id,stock;
+  final UpdateHandle updateHandle;
 
   Product({@required this.id,this.imageLocation,@required this.name,this.description,@required this.price,@required this.stock,@required this.updateHandle});
   

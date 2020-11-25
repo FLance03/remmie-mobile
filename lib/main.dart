@@ -7,6 +7,8 @@ const Login = '/';
 const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
+const FoodDrinks = '/FoodDrinks';
+const RoomCleaning = '/RoomCleaning';
 
 void main() => runApp(MaterialApp(
   onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
@@ -26,7 +28,7 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
-        screen = RoomServicePage2();
+        screen = RoomServicePage();
         break;
       case Login:
         screen = LoginPage();
@@ -39,6 +41,12 @@ RouteFactory _routes() {
         break;
       case Hotels:
         screen = HotelsPage();
+        break;
+      case FoodDrinks:
+        screen = RoomServicePage2();
+        break;
+      case RoomCleaning:
+        screen = RoomServicePage3();
         break;
       default:
         return null;
