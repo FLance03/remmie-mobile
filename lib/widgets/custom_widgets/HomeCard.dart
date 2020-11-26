@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 class HomeCard extends StatelessWidget {
   final String image, title, description, subDescription;
   final Widget rightWidget;
+  final double height;
 
   HomeCard(
       {this.image,
       this.title,
       this.description,
       this.subDescription,
-      this.rightWidget});
-  Widget build(BuildContext build) {
+      this.rightWidget,
+      this.height,});
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Image.asset(
           image,
-          width: 600,
-          height: 200,
+          width: MediaQuery.of(context).size.width,
+          height: height != null ? height : 200,
           fit: BoxFit.cover,
         ),
         Container(

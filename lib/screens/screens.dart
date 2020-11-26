@@ -11,4 +11,5 @@ export 'user_screens/BookingPage3.dart';
 export 'user_screens/RoomServicePage2.dart';
 export 'user_screens/RoomServicePage.dart';
 export 'user_screens/RoomServicePage3.dart';
+export 'user_screens/HotelDetailsPage.dart';
 
