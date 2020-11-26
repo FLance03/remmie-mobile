@@ -6,8 +6,9 @@ class HotelItem extends StatelessWidget {
   final String image,name,description;
   final int stars;
   final double height;
+  final Function onTap;
 
-  HotelItem({@required this.image,@required this.name, @required this.description,@required this.stars,this.height});
+  HotelItem({@required this.image,@required this.name, @required this.description,@required this.stars,this.height,this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class HotelItem extends StatelessWidget {
       description: description,
       rightWidget: Stars(stars: stars),
       height: height,
+      onTap: onTap,
     );
     // Column(
     //   children: [

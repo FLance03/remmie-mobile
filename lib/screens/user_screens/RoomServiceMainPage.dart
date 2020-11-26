@@ -24,7 +24,7 @@ class RoomServiceMainPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context,'/FoodDrinks');
+                      Navigator.pushNamed(context,'/RoomServiceProducts');
                     },
                     child: Image.asset(
                       'assets/grilled_burger.PNG',
@@ -34,7 +34,7 @@ class RoomServiceMainPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context,'/FoodDrinks');
+                      Navigator.pushNamed(context,'/RoomServiceProducts');
                     },
                     child: Center(
                       child: Text(
@@ -55,7 +55,7 @@ class RoomServiceMainPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context,'/RoomCleaning');
+                      Navigator.pushNamed(context,'/RoomServiceCleaning');
                     },
                     child: Image.asset(
                       'assets/grilled_burger.PNG',
@@ -65,7 +65,7 @@ class RoomServiceMainPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context,'/RoomCleaning');
+                      Navigator.pushNamed(context,'/RoomServiceCleaning');
                     },
                     child: Center(
                       child: Text(
