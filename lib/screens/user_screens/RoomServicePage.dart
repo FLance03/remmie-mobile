@@ -78,18 +78,13 @@ class RoomServicePage extends StatelessWidget {
                     ),
                   ),
                 ],
-              ) 
+              ),
             ),
           ],
         ),
       ),
       endDrawer: DisplayDrawer(
-        items:[
-          'Home',
-          'Item 1',
-          'Item 2',
-        ],
-        current:'Home',
+        notificationsCnt: 1,
       ),
     );
   }

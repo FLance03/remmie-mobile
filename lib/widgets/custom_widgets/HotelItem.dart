@@ -5,8 +5,9 @@ import 'HomeCard.dart';
 class HotelItem extends StatelessWidget {
   final String image,name,description;
   final int stars;
+  final double height;
 
-  HotelItem({@required this.image,@required this.name, @required this.description,@required this.stars});
+  HotelItem({@required this.image,@required this.name, @required this.description,@required this.stars,this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class HotelItem extends StatelessWidget {
       title: name,
       description: description,
       rightWidget: Stars(stars: stars),
+      height: height,
     );
     // Column(
     //   children: [
