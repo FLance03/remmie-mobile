@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../widgets/custom_widgets/IconTextField.dart';
+import '../../widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,25 +16,23 @@ class _LoginPageState extends State<LoginPage> {
         body: Center(
           child: Container(
             color: Color(0xFFF2F2F2),
-            padding: EdgeInsets.symmetric(vertical: 100.0),
-            constraints: BoxConstraints.expand(),
+            padding: EdgeInsets.symmetric(vertical: 130.0),
+            // constraints: BoxConstraints.expand(),
             child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     child: Container(
-                      // padding: EdgeInsets.only(bottom: 20.0),
                         child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10.0),
-                          child: Icon(
-                            Icons.android,
-                            size: 80.0,
-                            color: Color(0xFF2F2F2F),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: EdgeInsets.only(bottom: 10.0),
+                        //   child: Icon(
+                        //     Icons.android,
+                        //     size: 80.0,
+                        //     color: Color(0xFF2F2F2F),
+                        //   ),
+                        // ),
                         Text(
                           'remmie',
                           style: TextStyle(
@@ -88,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
+
                   Container(
                     margin: EdgeInsets.only(top: 30.0),
                     child: Row(

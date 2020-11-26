@@ -3,17 +3,20 @@ import 'screens/screens.dart';
 
 //Screens as String Variables
 const TestRoute = '/';
-const Login = '/';
+const Login = '/Login';
 const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
+const Booking1 = '/Booking1';
+const Booking2 = '/Booking2';
+const Booking3 = '/Booking3';
 const FoodDrinks = '/FoodDrinks';
 const RoomCleaning = '/RoomCleaning';
 
 void main() => runApp(MaterialApp(
-  onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
-  theme: _theme(),
-));
+      onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
+      theme: _theme(),
+    ));
 
 ThemeData _theme() {
   return ThemeData(
@@ -28,7 +31,7 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
-        screen = RoomServicePage();
+        screen = BookingPage1();
         break;
       case Login:
         screen = LoginPage();
@@ -42,6 +45,15 @@ RouteFactory _routes() {
       case Hotels:
         screen = HotelsPage();
         break;
+      case Booking1:
+        screen = BookingPage1();
+        break;
+      case Booking2:
+        screen = BookingPage2();
+        break;
+      case Booking3:
+        screen = BookingPage3();
+        break;
       case FoodDrinks:
         screen = RoomServicePage2();
         break;
@@ -54,5 +66,3 @@ RouteFactory _routes() {
     return MaterialPageRoute(builder: (BuildContext context) => screen);
   };
 }
-
-

@@ -15,19 +15,13 @@ class DisplayDrawer extends StatelessWidget {
           },
         ),
         ListTile(
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, '/');
-              //Logout condition
-            }),
-        ListTile(
           title: Container(
             child: Row(
               children: <Widget>[
                 Text("Notifications"),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
+                Expanded(
+                  flex: 1,
+                  child: Container(
                     alignment: Alignment.centerRight,
                     child: Container(
                       padding: EdgeInsets.all(5.0),
@@ -41,7 +35,6 @@ class DisplayDrawer extends StatelessWidget {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
-                      
                       ),
                     ),
                   ),
@@ -53,6 +46,13 @@ class DisplayDrawer extends StatelessWidget {
             // Navigator.pop(context);
           },
         ),
+        ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              //Logout condition
+              Navigator.pushReplacementNamed(context, '/');
+              
+            }),
       ],
     ));
   }
