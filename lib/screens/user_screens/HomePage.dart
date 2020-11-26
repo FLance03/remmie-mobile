@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                       EdgeInsets.only(left: 60, right: 60, bottom: 35, top: 20),
                   child: FlatButton(
                     height: 50.0,
-                    onPressed: () {},
+                    onPressed: () => _roomservice(context),
                     color: Color(0xFF2F2F2F),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -66,4 +66,8 @@ class HomePage extends StatelessWidget {
       );
     }
   }
+}
+
+_roomservice(BuildContext context) {
+  Navigator.pushNamed(context, '/RoomServiceMain');
 }
