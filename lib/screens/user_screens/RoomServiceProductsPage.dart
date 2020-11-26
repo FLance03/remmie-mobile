@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
-class RoomServicePage2 extends StatelessWidget {
+class RoomServiceProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FoodsBeverages();

@@ -10,19 +10,19 @@ class HotelsPage extends StatelessWidget {
         body: HotelList(
           hotels: [
             HotelItem(
-              image: 'test_images/hotel2.jpg',
+              image: 'assets/hotel2.jpg',
               name: 'Cargotell Travellinn',
               description: 'Entire suite • 2 bedrooms • 1 living room',
               stars: 3,
             ),
             HotelItem(
-              image: 'test_images/hotel1.jpg',
+              image: 'assets/hotel1.jpg',
               name: 'Sukish',
               description: 'Just suks',
               stars: 2,
             ),
             HotelItem(
-              image: 'images/lake.jpg',
+              image: 'assets/sample.jpg',
               name: 'Lakkeee',
               description: 'Entire suites in the Lake',
               stars: 4,

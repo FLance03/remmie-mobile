@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
-class RoomServicePage3 extends StatelessWidget {
+class RoomServiceCleaningPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
