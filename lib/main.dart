@@ -8,8 +8,9 @@ const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
 const Booking = '/Booking';
-const FoodDrinks = '/FoodDrinks';
-const RoomCleaning = '/RoomCleaning';
+const RoomServiceMain = '/RoomServiceMain';
+const RoomServiceProducts = '/RoomServiceProducts';
+const RoomServiceCleaning = '/RoomServiceCleaning';
 
 void main() => runApp(MaterialApp(
       onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
@@ -46,10 +47,20 @@ RouteFactory _routes() {
       case Booking:
         screen = BookingPage();
         break;
+<<<<<<< HEAD
       case FoodDrinks:
         screen = RoomServiceProductsPage();
         break;
       case RoomCleaning:
+=======
+      case RoomServiceMain:
+        screen = RoomServiceMainPage();
+        break;
+      case RoomServiceProducts:
+        screen = RoomServiceProductsPage();
+        break;
+      case RoomServiceCleaning:
+>>>>>>> 63a8da1eb109ff719d03dbd15d0c54fcbd3c8b5f
         screen = RoomServiceCleaningPage();
         break;
       default:
