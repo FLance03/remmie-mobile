@@ -30,7 +30,11 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
+<<<<<<< HEAD
+        screen = AnnouncementDetailsPage();
+=======
         screen = LoginPage();
+>>>>>>> aefd90906017af805b16034893f6a8b29bab6a2d
         break;
       case Login:
         screen = LoginPage();

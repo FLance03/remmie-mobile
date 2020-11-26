@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
-  final currentIndex;
+  final int currentIndex;
+  final bool forcePush;
 
-  BottomNavBar({@required this.currentIndex});
+  BottomNavBar({@required this.currentIndex,this.forcePush});
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: [
@@ -19,7 +20,7 @@ class BottomNavBar extends StatelessWidget {
       currentIndex: currentIndex,
       selectedItemColor: Colors.black,
       onTap: (int index){
-        if (index != currentIndex){
+        if (index!=currentIndex || forcePush){
           if (index == 1){
             Navigator.pushReplacementNamed(context, '/Hotels');
           }else {

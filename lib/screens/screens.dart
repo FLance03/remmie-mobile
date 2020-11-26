@@ -10,4 +10,5 @@ export 'user_screens/RoomServiceProductsPage.dart';
 export 'user_screens/RoomServiceMainPage.dart';
 export 'user_screens/RoomServiceCleaningPage.dart';
 export 'user_screens/HotelDetailsPage.dart';
+export 'user_screens/AnnouncementDetailsPage.dart';
 
