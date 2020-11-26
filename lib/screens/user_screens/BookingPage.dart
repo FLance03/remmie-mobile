@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
-class BookingPage1 extends StatelessWidget {
+class BookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext outContext) {
     return SafeArea(
@@ -35,13 +35,14 @@ class BookingPage1 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CustomRoomDropDown(
-                          width: 300.0,
+                          width: 290.0,
                           height: 60.0,
                         ),
                         CustomDatePicker(
                             width: 290.0, height: 60.0, label: 'Check-In Date: '),
                         CustomDatePicker(
                             width: 290.0, height: 60.0, label: 'Check-Out Date: '),
+                        Text('Total: Php 0.00'),
                         RaisedButton(
                           onPressed: () => {},
                           color: Colors.white,
@@ -62,12 +63,36 @@ class BookingPage1 extends StatelessWidget {
                       ],
                     ),
                   ),
+
+
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomCardDropDown(
+                          width: 300.0,
+                          height: 60.0,
+                        ),
+                        IconTextField(
+                          hintText: "Name",
+                          icon: Icons.person,
+                        ),
+                        IconTextField(
+                          hintText: "Card Number",
+                          icon: Icons.credit_card,
+                        ),
+                        
+                      ],
+                    ),
+                  ),
+
+
                   Container(
                     child: Text('NGEKNGOK'),
                   ),
-                  Container(
-                    child: Text('NGEKNGOK'),
-                  ),
+
+
+
                 ],
               ),
             ),

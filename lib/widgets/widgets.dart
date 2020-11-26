@@ -1,8 +1,9 @@
 //importing 'widgets.dart' imports all custom widgets 
 //located in the custom_widgets folder
 export 'custom_widgets/CustomAppBar.dart';
-export 'custom_widgets/CustomRoomDropDown.dart';
+export 'custom_widgets/CustomCardDropDown.dart';
 export 'custom_widgets/CustomDatePicker.dart';
+export 'custom_widgets/CustomRoomDropDown.dart';
 export 'custom_widgets/Stars.dart';
 export 'custom_widgets/DisplayDrawer.dart';
 export 'custom_widgets/HotelList.dart';

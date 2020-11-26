@@ -18,61 +18,53 @@ class _SignupPageState extends State<SignupPage> {
         body: Center(
           child: Container(
             color: Color(0xFFF2F2F2),
-            padding: EdgeInsets.symmetric(vertical: 40.0),
-            constraints: BoxConstraints.expand(),
+            padding: EdgeInsets.symmetric(vertical: 50.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Expanded(
-                  child: Container(
-                      child: Column(
+                Container(
+                    child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.android,
+                      size: 50.0,
+                      color: Color(0xFF2F2F2F),
+                    ),
+                    Text(
+                      'remmie',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ],
+                )),
+                Form(
+                  key: formKey,
+                  child: Column(
                     children: <Widget>[
-                      // Icon(
-                      //   Icons.android,
-                      //   size: 80.0,
-                      //   color: Color(0xFF2F2F2F),
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 50.0),
-                        child: Text(
-                          'remmie',
-                          style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0,
-                          ),
-                        ),
+                      IconTextField(
+                        hintText: "First Name",
+                        icon: Icons.person,
+                      ),
+                      IconTextField(
+                        hintText: "Last Name",
+                        icon: Icons.person,
+                      ),
+                      IconTextField(
+                        hintText: "Password",
+                        icon: Icons.lock,
+                      ),
+                      IconTextField(
+                        hintText: "Confirm Password",
+                        icon: Icons.lock,
+                      ),
+                      IconTextField(
+                        hintText: "Email",
+                        icon: Icons.email,
                       ),
                     ],
-                  )),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: <Widget>[
-                        IconTextField(
-                          hintText: "First Name",
-                          icon: Icons.person,
-                        ),
-                        IconTextField(
-                          hintText: "Last Name",
-                          icon: Icons.person,
-                        ),
-                        IconTextField(
-                          hintText: "Password",
-                          icon: Icons.lock,
-                        ),
-                        IconTextField(
-                          hintText: "Confirm Password",
-                          icon: Icons.lock,
-                        ),
-                        IconTextField(
-                          hintText: "Email",
-                          icon: Icons.email,
-                        ),
-                      ],
-                    ),
                   ),
                 ),
                 RaisedButton(
@@ -92,24 +84,21 @@ class _SignupPageState extends State<SignupPage> {
                         )),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
-                  child: RaisedButton(
-                    onPressed: () => _back(context),
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0),
-                      child: Text('BACK',
-                          style: TextStyle(
-                            letterSpacing: 1.0,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF2F2F2F),
-                          )),
-                    ),
+                RaisedButton(
+                  onPressed: () => _back(context),
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50.0),
+                    child: Text('BACK',
+                        style: TextStyle(
+                          letterSpacing: 1.0,
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF2F2F2F),
+                        )),
                   ),
                 ),
               ],

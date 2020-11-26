@@ -7,9 +7,7 @@ const Login = '/Login';
 const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
-const Booking1 = '/Booking1';
-const Booking2 = '/Booking2';
-const Booking3 = '/Booking3';
+const Booking = '/Booking';
 const FoodDrinks = '/FoodDrinks';
 const RoomCleaning = '/RoomCleaning';
 
@@ -31,7 +29,7 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
-        screen = HotelDetailsPage();
+        screen = LoginPage();
         break;
       case Login:
         screen = LoginPage();
@@ -45,14 +43,8 @@ RouteFactory _routes() {
       case Hotels:
         screen = HotelsPage();
         break;
-      case Booking1:
-        screen = BookingPage1();
-        break;
-      case Booking2:
-        screen = BookingPage2();
-        break;
-      case Booking3:
-        screen = BookingPage3();
+      case Booking:
+        screen = BookingPage();
         break;
       case FoodDrinks:
         screen = RoomServicePage2();
