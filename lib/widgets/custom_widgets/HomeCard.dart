@@ -19,7 +19,7 @@ class HomeCard extends StatelessWidget {
           image,
           width: MediaQuery.of(context).size.width,
           height: height != null ? height : 200,
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
         Container(
           child: Column(
