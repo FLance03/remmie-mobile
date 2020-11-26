@@ -10,7 +10,7 @@ class DashboardCard extends StatelessWidget {
       return Container(
         color: Colors.transparent,
         margin: EdgeInsets.only(
-          top: 40,
+          top: 30,
           left: 20,
           right: 20,
         ),
@@ -70,7 +70,7 @@ class DashboardCard extends StatelessWidget {
       return Container(
         color: Colors.transparent,
         margin: EdgeInsets.only(
-          top: 40,
+          top: 30,
           left: 20,
           right: 20,
         ),

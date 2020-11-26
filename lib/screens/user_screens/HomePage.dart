@@ -18,12 +18,8 @@ class HomePage extends StatelessWidget {
                 return HomeAnnouncement();
               } else if (index == 1) {
                 return Container(
-                  margin: EdgeInsets.only(
-                    left: 60,
-                    right: 60,
-                    bottom: 35,
-                    top: 20
-                  ),
+                  margin:
+                      EdgeInsets.only(left: 60, right: 60, bottom: 35, top: 20),
                   child: FlatButton(
                     height: 50.0,
                     onPressed: () {},

@@ -7,8 +7,8 @@ class Tabs extends StatefulWidget {
   final String section;
   final UpdateHandle updateHandle;
 
-  Tabs({@required this.section,@required this.updateHandle});
-
+  Tabs({@required this.section, @required this.updateHandle});
+ 
   @override
   _TabsState createState() => _TabsState();
 }

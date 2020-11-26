@@ -18,7 +18,7 @@ class _SignupPageState extends State<SignupPage> {
         body: Center(
           child: Container(
             color: Color(0xFFF2F2F2),
-            padding: EdgeInsets.symmetric(vertical: 25.0),
+            padding: EdgeInsets.symmetric(vertical: 40.0),
             constraints: BoxConstraints.expand(),
             child: Column(
               children: <Widget>[
@@ -26,17 +26,20 @@ class _SignupPageState extends State<SignupPage> {
                   child: Container(
                       child: Column(
                     children: <Widget>[
-                      Icon(
-                        Icons.android,
-                        size: 80.0,
-                        color: Color(0xFF2F2F2F),
-                      ),
-                      Text(
-                        'remmie',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.0,
+                      // Icon(
+                      //   Icons.android,
+                      //   size: 80.0,
+                      //   color: Color(0xFF2F2F2F),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: Text(
+                          'remmie',
+                          style: TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                          ),
                         ),
                       ),
                     ],
@@ -91,14 +94,14 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 20.0),
-                  child: FlatButton(
+                  child: RaisedButton(
                     onPressed: () => _back(context),
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40.0),
+                      padding: EdgeInsets.symmetric(horizontal: 50.0),
                       child: Text('BACK',
                           style: TextStyle(
                             letterSpacing: 1.0,
