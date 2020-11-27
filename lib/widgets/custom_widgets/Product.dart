@@ -116,7 +116,7 @@ class _ProductState extends State<Product> with AutomaticKeepAliveClientMixin<Pr
     );
   }
   void updateCart(incrementDecrement action) {
-    if (!(action==incrementDecrement.decrement && quantity==1) && !(action==incrementDecrement.increment && quantity==this.widget.stock)){
+    if (!(action==incrementDecrement.decrement && quantity==0) && !(action==incrementDecrement.increment && quantity==this.widget.stock)){
       this.widget.updateHandle(
         product: Products(
           id: this.widget.id,

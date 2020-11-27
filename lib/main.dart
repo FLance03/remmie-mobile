@@ -31,15 +31,9 @@ RouteFactory _routes() {
     // final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
     Widget screen;
     switch (settings.name) {
-<<<<<<< HEAD
-      case TestRoute:
-        screen = LoginPage();
-        break;
-=======
       // case TestRoute:
       //   screen = BookingPage();
       //   break;
->>>>>>> 3737f3fdd47d7dfebfe97fedc680e9127b8fb2fb
       case Login:
         screen = LoginPage();
         break;
