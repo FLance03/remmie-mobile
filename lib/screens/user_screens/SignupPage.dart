@@ -27,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
                   children: <Widget>[
                     Icon(
                       Icons.android,
-                      size: 50.0,
+                      size: 70.0,
                       color: Color(0xFF2F2F2F),
                     ),
                     Text(

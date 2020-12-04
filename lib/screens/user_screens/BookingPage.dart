@@ -7,19 +7,35 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
-  int selectedRadioTile, selectedRadio;
-
+  int selectedRadioTile, selectedRadio, roomCnt;
+  double totalPrice;
   @override
   void initState() {
     super.initState();
     selectedRadio = 0;
-    selectedRadioTile = 0;
+    selectedRadioTile = 1;
+    roomCnt = 1;
+    totalPrice = 0.0;
   }
 
   setSelectedRadioTile(int val) {
     setState(() {
       selectedRadioTile = val;
     });
+  }
+
+  _increment() {
+    setState(() {
+      roomCnt++;
+    });
+  }
+
+  _decrement() {
+    if (roomCnt > 1) {
+      setState(() {
+        roomCnt--;
+      });
+    }
   }
 
   @override
@@ -51,9 +67,66 @@ class _BookingPageState extends State<BookingPage> {
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        //Start of Details
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text('Number of Rooms: ',
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF2F2F2F),
+                                )),
+                            Center(
+                              child: Text(roomCnt.toString(),
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF2F2F2F),
+                                  )),
+                            ),
+                            ButtonTheme(
+                              minWidth: 50.0,
+                              child: RaisedButton(
+                                onPressed: () => _decrement(),
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Text('-',
+                                    style: TextStyle(
+                                      letterSpacing: 1.0,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF2F2F2F),
+                                    )),
+                              ),
+                            ),
+                            ButtonTheme(
+                              minWidth: 50.0,
+                              child: RaisedButton(
+                                onPressed: () => _increment(),
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Text('+',
+                                    style: TextStyle(
+                                      letterSpacing: 1.0,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF2F2F2F),
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+
                         CustomRoomDropDown(
                           width: 290.0,
                           height: 60.0,
@@ -66,7 +139,7 @@ class _BookingPageState extends State<BookingPage> {
                             width: 290.0,
                             height: 60.0,
                             label: 'Check-Out Date: '),
-                        Text('Total: Php 0.00'),
+                        Text('Total: Php ' + totalPrice.toString()),
                         RaisedButton(
                           onPressed: () => {},
                           color: Colors.white,
@@ -87,6 +160,9 @@ class _BookingPageState extends State<BookingPage> {
                       ],
                     ),
                   ),
+                  //End of Details
+
+                  //Start of Payment Method
                   Container(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,7 +173,9 @@ class _BookingPageState extends State<BookingPage> {
                           title: Text("Credit Card"),
                           // subtitle: Text("Radio 1 Subtitle"),
                           onChanged: (val) {
-                            // print("Radio Tile pressed $val");
+                            if (val == 1) {
+                              print('$val');
+                            }
                             setSelectedRadioTile(val);
                           },
                           activeColor: Color(0xFF2F2F2F),
@@ -109,37 +187,42 @@ class _BookingPageState extends State<BookingPage> {
                           // ),
                           selected: true,
                         ),
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              CustomCardDropDown(
-                                width: 280.0,
-                                height: 60.0,
-                              ),
-                              Container(
-                                child: Column(
-                                  children: <Widget>[
-                                    IconTextField(
-                                      hintText: "Name",
-                                      icon: Icons.person,
-                                      vertical: 20.0,
+                        (() {
+                          if (this.selectedRadioTile == 1) {
+                            return Container(
+                              child: Column(
+                                children: <Widget>[
+                                  CustomCardDropDown(
+                                    width: 280.0,
+                                    height: 60.0,
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        IconTextField(
+                                          hintText: "Name",
+                                          icon: Icons.person,
+                                          vertical: 20.0,
+                                        ),
+                                        IconTextField(
+                                          hintText: "Card Number",
+                                          icon: Icons.credit_card,
+                                          vertical: 20.0,
+                                        ),
+                                      ],
                                     ),
-                                    IconTextField(
-                                      hintText: "Card Number",
-                                      icon: Icons.credit_card,
-                                      vertical: 20.0,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
+                            );
+                          } else {
+                            return Text('hello world');
+                          }
+                        }()),
                         RadioListTile(
                           value: 2,
                           groupValue: selectedRadioTile,
                           title: Text("Cash on Arrival"),
-                          // subtitle: Text("Radio 1 Subtitle"),
                           onChanged: (val) {
                             setSelectedRadioTile(val);
                           },
@@ -166,9 +249,57 @@ class _BookingPageState extends State<BookingPage> {
                       ],
                     ),
                   ),
+                  //End of Payment Method
+
+                  //Start of Complete
                   Container(
-                    child: Text('NGEKNGOK'),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Center(
+                            child: Text('You have successfully checked in!')),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 30,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(10)),
+                          ),
+                          child: Image.asset(
+                            "assets/qrcode.png",
+                            width: 300,
+                            height: 300,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        Text('Date of Stay:'),
+                        Center(
+                            child: Text(
+                                'September 01, 2020 - September 07, 2020')),
+                        RaisedButton(
+                          onPressed: () => {},
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.0, horizontal: 20.0),
+                            child: Text('Back to Home',
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF2F2F2F),
+                                )),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  //End of Complete
                 ],
               ),
             ),
