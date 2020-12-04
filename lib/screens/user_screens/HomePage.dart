@@ -9,7 +9,15 @@ class HomePage extends StatelessWidget {
     if (isBooked) {
       return SafeArea(
         child: Scaffold(
-          appBar: CustomAppBar(),
+          appBar: AppBar(
+            title: Text('remmie',
+                style: TextStyle(
+                  letterSpacing: 1.0,
+                  color: Colors.black,
+                )),
+            centerTitle: true,
+            leading: new Container(),
+          ),
           resizeToAvoidBottomPadding: false,
           body: ListView.builder(
             itemCount: 3,

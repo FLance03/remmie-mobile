@@ -17,62 +17,68 @@ class RoomServiceMainPage extends StatelessWidget {
           ),
         ),
         child: Column(
-          children:[
+          children: [
             Expanded(
-              flex:5,
-              child: Stack (
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context,'/RoomServiceProducts');
-                    },
-                    child: Image.asset(
-                      'assets/grilled_burger.PNG',
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context,'/RoomServiceProducts');
-                    },
-                    child: Center(
-                      child: Text(
-                        'Food & Drinks',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
+                flex: 1,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/RoomServiceProducts');
+                        },
+                        child: Image.asset(
+                          'assets/service1.jpg',
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ) 
-            ),
+                    Positioned.fill(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/RoomServiceProducts');
+                        },
+                        child: Center(
+                          child: Text(
+                            'Food & Drinks',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
             Expanded(
-              flex:5,
-              child: Stack (
+              flex: 1,
+              child: Stack(
                 children: [
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context,'/RoomServiceCleaning');
-                    },
-                    child: Image.asset(
-                      'assets/grilled_burger.PNG',
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fill,
+                  Positioned.fill(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/RoomServiceCleaning');
+                      },
+                      child: Image.asset(
+                        'assets/service3.jpeg',
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context,'/RoomServiceCleaning');
-                    },
-                    child: Center(
-                      child: Text(
-                        'Room Cleaning',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
+                  Positioned.fill(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/RoomServiceCleaning');
+                      },
+                      child: Center(
+                        child: Text(
+                          'Room Cleaning',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                          ),
                         ),
                       ),
                     ),

@@ -8,27 +8,27 @@ class HotelDetailsPage extends StatelessWidget {
   final isBooked = false;
   final List<Widget> previewImages = [
     Image.asset(
-      'assets/grilled_burger.PNG',
+      'assets/room2.jpg',
       width: 130,
       fit: BoxFit.fill,
     ),
     Image.asset(
-      'assets/grilled_burger.PNG',
+      'assets/room4.jpg',
       width: 130,
       fit: BoxFit.fill,
     ),
     Image.asset(
-      'assets/grilled_burger.PNG',
+      'assets/service2.jpg',
       width: 130,
       fit: BoxFit.fill,
     ),
     Image.asset(
-      'assets/grilled_burger.PNG',
+      'assets/room3.jpg',
       width: 130,
       fit: BoxFit.fill,
     ),
     Image.asset(
-      'assets/grilled_burger.PNG',
+      'assets/fireworks.jpg',
       width: 130,
       fit: BoxFit.fill,
     ),
@@ -46,11 +46,11 @@ class HotelDetailsPage extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: HotelItem(
-                  image: 'assets/hotel2.jpg',
-                  name: 'Cargotell Travellinn',
-                  description: 'Entire suite • 2 bedrooms • 1 living room',
+                  image: 'assets/holidayhotel.jpg',
+                  name: 'Holiday Plaza Hotel',
+                  description: 'Superior suite • 2 bedrooms • 1 living room',
                   stars: 3,
-                  height: 150.0,
+                  height: 180.0,
                 ),
               ),
               Expanded(
@@ -63,42 +63,40 @@ class HotelDetailsPage extends StatelessWidget {
                   } 
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 20),
-                  child: ButtonTheme(
-                    minWidth: 200.0,
-                    child: FlatButton(
-                      height: 30.0,
-                      onPressed: () => {_booking(context)},
-                      color: isBooked ? Color(0x882F2F2F) : Color(0xFF2F2F2F),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
+              Container(
+                  margin:
+                      EdgeInsets.only(bottom: 50, top: 40),
+                  child: FlatButton(
+                    height: 60.0,
+                    onPressed: () => _book(context),
+                    color: Color(0xFF2F2F2F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: Text('BOOK',
-                        style: TextStyle(
-                          letterSpacing: 5.0,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
+                          style: TextStyle(
+                            letterSpacing: 1.0,
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          )),
                     ),
                   ),
-                ),
-              )
+                )
             ],
           ),
         ),
         endDrawer: DisplayDrawer(
           notificationsCnt: 1,
         ),
-        bottomNavigationBar: BottomNavBar(currentIndex: 1,forcePush: true,),
+        bottomNavigationBar: BottomNavBar(currentIndex: 1, forcePush: true,),
       ),
     );
   }
 }
-_booking (BuildContext context){
+
+_book(BuildContext context){
   Navigator.pushNamed(context, '/Booking');
 }

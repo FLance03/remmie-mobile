@@ -11,7 +11,7 @@ class CustomRoomDropDown extends StatefulWidget {
 }
 
 class _CustomRoomDropDownState extends State<CustomRoomDropDown> {
-  String selected = 'Deluxe';
+  String selected = 'Superior';
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +43,10 @@ class _CustomRoomDropDownState extends State<CustomRoomDropDown> {
               padding: EdgeInsets.symmetric(horizontal: 5.0),
               child: DropdownButton(
                 items: [
-                  'Deluxe',
-                  'Single',
-                  'Double',
-                  'Triple',
-                  'Queen',
-                  'King',
+                  'Superior',
+                  'Business Class',
+                  'Executive Suite',
+                  'Holiday Suite',
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,

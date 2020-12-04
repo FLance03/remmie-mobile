@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
 class BookingPage extends StatefulWidget {
+  const BookingPage({Key key}) : super(key: key);
+
   @override
   _BookingPageState createState() => _BookingPageState();
 }
 
-class _BookingPageState extends State<BookingPage> {
+class _BookingPageState extends State<BookingPage>
+    with SingleTickerProviderStateMixin {
   int selectedRadioTile, selectedRadio, roomCnt;
   double totalPrice;
+  bool flag;
+
+  final List<Tab> bookingTabs = <Tab>[
+    Tab(text: 'Details'),
+    Tab(text: 'Payment Method'),
+  ];
+
+  TabController _tabController;
+
   @override
   void initState() {
     super.initState();
@@ -16,6 +28,17 @@ class _BookingPageState extends State<BookingPage> {
     selectedRadioTile = 1;
     roomCnt = 1;
     totalPrice = 0.0;
+    _tabController = TabController(vsync: this, length: 2);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  _next() {
+    _tabController.animateTo((_tabController.index + 1));
   }
 
   setSelectedRadioTile(int val) {
@@ -42,7 +65,7 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext outContext) {
     return SafeArea(
       child: DefaultTabController(
-        length: 3,
+        length: 2,
         child: Builder(builder: (BuildContext context) {
           return Scaffold(
             appBar: AppBar(
@@ -52,11 +75,8 @@ class _BookingPageState extends State<BookingPage> {
                     color: Colors.black,
                   )),
               bottom: TabBar(
-                tabs: <Tab>[
-                  Tab(text: 'Details'),
-                  Tab(text: 'Payment\n Method'),
-                  Tab(text: 'Complete')
-                ],
+                controller: _tabController,
+                tabs: bookingTabs,
               ),
               centerTitle: true,
             ),
@@ -64,7 +84,7 @@ class _BookingPageState extends State<BookingPage> {
             body: Container(
               padding: EdgeInsets.only(bottom: 20.0),
               child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                controller: _tabController,
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -126,7 +146,6 @@ class _BookingPageState extends State<BookingPage> {
                             ),
                           ],
                         ),
-
                         CustomRoomDropDown(
                           width: 290.0,
                           height: 60.0,
@@ -141,7 +160,7 @@ class _BookingPageState extends State<BookingPage> {
                             label: 'Check-Out Date: '),
                         Text('Total: Php ' + totalPrice.toString()),
                         RaisedButton(
-                          onPressed: () => {},
+                          onPressed: () => _next(),
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -216,7 +235,38 @@ class _BookingPageState extends State<BookingPage> {
                               ),
                             );
                           } else {
-                            return Text('hello world');
+                            return AbsorbPointer(
+                              absorbing: true,
+                              child: Opacity(
+                                opacity: 0.60,
+                                child: Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      CustomCardDropDown(
+                                        width: 280.0,
+                                        height: 60.0,
+                                      ),
+                                      Container(
+                                        child: Column(
+                                          children: <Widget>[
+                                            IconTextField(
+                                              hintText: "Name",
+                                              icon: Icons.person,
+                                              vertical: 20.0,
+                                            ),
+                                            IconTextField(
+                                              hintText: "Card Number",
+                                              icon: Icons.credit_card,
+                                              vertical: 20.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           }
                         }()),
                         RadioListTile(
@@ -230,7 +280,7 @@ class _BookingPageState extends State<BookingPage> {
                           selected: false,
                         ),
                         RaisedButton(
-                          onPressed: () => {},
+                          onPressed: () => _confirm(context),
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -250,56 +300,6 @@ class _BookingPageState extends State<BookingPage> {
                     ),
                   ),
                   //End of Payment Method
-
-                  //Start of Complete
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Center(
-                            child: Text('You have successfully checked in!')),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 30,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(10)),
-                          ),
-                          child: Image.asset(
-                            "assets/qrcode.png",
-                            width: 300,
-                            height: 300,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        Text('Date of Stay:'),
-                        Center(
-                            child: Text(
-                                'September 01, 2020 - September 07, 2020')),
-                        RaisedButton(
-                          onPressed: () => {},
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 20.0),
-                            child: Text('Back to Home',
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF2F2F2F),
-                                )),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //End of Complete
                 ],
               ),
             ),
@@ -311,4 +311,8 @@ class _BookingPageState extends State<BookingPage> {
       ),
     );
   }
+}
+
+_confirm(BuildContext context) {
+  Navigator.pushNamed(context, '/Complete');
 }
