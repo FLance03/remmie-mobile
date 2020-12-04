@@ -71,7 +71,7 @@ class HotelDetailsPage extends StatelessWidget {
                     minWidth: 200.0,
                     child: FlatButton(
                       height: 30.0,
-                      onPressed: (){},
+                      onPressed: () => {_booking(context)},
                       color: isBooked ? Color(0x882F2F2F) : Color(0xFF2F2F2F),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -94,8 +94,11 @@ class HotelDetailsPage extends StatelessWidget {
         endDrawer: DisplayDrawer(
           notificationsCnt: 1,
         ),
-        bottomNavigationBar: BottomNavBar(currentIndex: 1),
+        bottomNavigationBar: BottomNavBar(currentIndex: 1,forcePush: true,),
       ),
     );
   }
+}
+_booking (BuildContext context){
+  Navigator.pushNamed(context, '/Booking');
 }
