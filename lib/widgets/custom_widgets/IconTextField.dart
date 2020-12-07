@@ -4,8 +4,9 @@ class IconTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final double vertical;
+  final TextEditingController controller;
 
-  IconTextField({@required this.hintText, @required this.icon, this.vertical});
+  IconTextField({@required this.hintText, @required this.icon, this.vertical, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class IconTextField extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           vertical: vertical != null ? vertical : 10.0, horizontal: 40.0),
       child: TextFormField(
+        controller: controller,
         autofocus: false,
         decoration: InputDecoration(
           filled: true,
