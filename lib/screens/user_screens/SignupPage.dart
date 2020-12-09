@@ -53,16 +53,16 @@ class _SignupPageState extends State<SignupPage> {
                         icon: Icons.person,
                       ),
                       IconTextField(
+                        hintText: "Email",
+                        icon: Icons.email,
+                      ),
+                      IconTextField(
                         hintText: "Password",
                         icon: Icons.lock,
                       ),
                       IconTextField(
                         hintText: "Confirm Password",
                         icon: Icons.lock,
-                      ),
-                      IconTextField(
-                        hintText: "Email",
-                        icon: Icons.email,
                       ),
                     ],
                   ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../widgets/widgets.dart';
@@ -93,6 +94,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-_roomservice(BuildContext context) {
-  Navigator.pushNamed(context, '/RoomServiceMain');
+_roomservice(BuildContext context) async {
+  dynamic sessionValue = await FlutterSession().get("first_name");
+  print(sessionValue);
+  // Navigator.pushNamed(context, '/RoomServiceMain');
 }
