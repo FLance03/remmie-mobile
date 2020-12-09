@@ -20,26 +20,37 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
 
-  var body = json.encode({"firstname": "fletcher@gmail.com", "password": "123"});
+  var body = json.encode({"email": "fl@gmail.com", "password": "123"});
 
   _login(BuildContext context) async {
     print('Logging in...');
     final res = await http.post(apiUrl, body: body);
-    // var data = jsonDecode(res.body);
+    var data = jsonDecode(res.body);
 
-    // if (res.statusCode == 200) {
-    //   print('hello world');
-    // } else {
-    //   print(res.statusCode);
-    // }
+    if (res.statusCode == 200){
+      print(data['first_name']);
+      print(data['last_name']);
+      print(data['email']);
+      print(data['password']);
+    } else {
+      print(res.statusCode);
+    }
+    
+    var session = FlutterSession();
+    await session.set("first_name", data['first_name']);
+    await session.set("last_name", data['last_name']);
+    await session.set("email", data['email']);
+    await session.set("password", data['password']);
 
-    // FlutterSession().set('data', 'hi thereeeeeeeee');
-
-    // var someValue = FlutterSession().get('data');
-    // print(someValue.toString());
+    dynamic sessionValue = await FlutterSession().get("first_name");
+    print(sessionValue);
+    sessionValue = await FlutterSession().get("last_name");
+    print(sessionValue);
+    sessionValue = await FlutterSession().get("email");
+    print(sessionValue);
+    sessionValue = await FlutterSession().get("password");
+    print(sessionValue);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
