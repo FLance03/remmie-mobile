@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.16.1
+  mysql1: ^0.17.1
   http: ^0.12.2
 
 

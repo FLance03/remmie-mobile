@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mysql1/mysql1.dart';
 import 'screens/screens.dart';
 
 //Screens as String Variables
@@ -15,10 +16,12 @@ const RoomServiceCleaning = '/RoomServiceCleaning';
 const AnnouncementDetails = '/AnnouncementDetails';
 const HotelDetails = '/HotelDetails';
 
-void main() => runApp(MaterialApp(
-      onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
-      theme: _theme(),
-    ));
+Future main() async{
+  runApp(MaterialApp(
+    onGenerateRoute: _routes(), //default routes is '/' which is LoginPage()
+    theme: _theme(),
+  ));
+}
 
 ThemeData _theme() {
   return ThemeData(
