@@ -1,6 +1,7 @@
+import 'package:Remmie/classes/mysql.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart' as mysql;
 import '../../widgets/widgets.dart';
+import '../../classes/mysql.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,18 +10,38 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  var conn;
 
-  Future connect() async {
-    var settings = new mysql.ConnectionSettings(
-      host: '10.0.2.2', 
-      port: 3306,
-      user: 'root',
-      password: '',
-      db: 'remmie'
-    );
-    var conn = await mysql.MySqlConnection.connect(settings);
+
+
+  var db = new MySql();
+  void _login(BuildContext context) {
+
+
+    db.getConnection().then((connection) {
+      print('db connected');
+        // String sql = '';
+        // connection.query(sql).then((results) {
+        //   for(var row in results) {
+        //     print('data received from databaseru');
+        //   }
+        // });
+    });
+    print('Logging in ...');
+    // Navigator.pushNamed(context, '/Home');
   }
+
+  // var conn;
+
+  // Future connect() async {
+  //   var settings = new mysql.ConnectionSettings(
+  //     host: '10.0.2.2', 
+  //     port: 3306,
+  //     user: 'root',
+  //     password: '',
+  //     db: 'remmie'
+  //   );
+  //   var conn = await mysql.MySqlConnection.connect(settings);
+  // }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,9 +91,9 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.only(top: 20.0),
                   child: RaisedButton(
                     onPressed:  () async {
-                      await connect();
-                      var results = await conn.query("INSERT INTO users(first_name,last_name,email,password) VALUES('aa','aa','aa','aa')");
-                      print(results);
+                      // await connect();
+                      // var results = await conn.query("INSERT INTO users(first_name,last_name,email,password) VALUES('aa','aa','aa','aa')");
+                      // print(results);
                       _login(context);
                     },
                     color: Colors.white,
@@ -114,10 +135,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-_login(BuildContext context) {
-  //If Login Authetication returns true
-  Navigator.pushNamed(context, '/Home');
-}
+
 
 _signup(BuildContext context) {
   //If Login Authetication returns true
