@@ -7,22 +7,22 @@ import '../../widgets/widgets.dart';
 final isBooked = true;
 
 class HomePage extends StatelessWidget {
-  Future<List> senddata() async {
-    final response = await http.post("http://192.168.0.153/flutter/remmie/insertdata.php", body: {
-      "name": 'name.text',
-    });
-    var message = jsonDecode(response.body);
+  // Future<List> senddata() async {
+  //   final response = await http.post("http://192.168.0.153/flutter/remmie/insertdata.php", body: {
+  //     "name": 'name.text',
+  //   });
+  //   var message = jsonDecode(response.body);
  
-  // If Web call Success than Hide the CircularProgressIndicator.
-    if(response.statusCode == 200){
-    print('Success');
-  }else {
-    print(response.statusCode);
-  }
-  }
+  //   // If Web call Success than Hide the CircularProgressIndicator.
+  //   if(response.statusCode == 200){
+  //     print('Success');
+  //   }else {
+  //     print(response.statusCode);
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
-    senddata();
+    // senddata();
     if (isBooked) {
       return SafeArea(
         child: Scaffold(

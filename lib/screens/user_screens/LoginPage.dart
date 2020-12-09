@@ -1,7 +1,9 @@
-import 'package:Remmie/classes/mysql.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../api.dart';
 import '../../widgets/widgets.dart';
-import '../../classes/mysql.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,37 +13,34 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  String apiUrl = Api.login;
+  String email = "fletcher";
+  String password = "123";
 
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
 
-  var db = new MySql();
-  void _login(BuildContext context) {
+  var body = json.encode({"firstname": "fletcher@gmail.com", "password": "123"});
 
+  _login(BuildContext context) async {
+    print('Logging in...');
+    final res = await http.post(apiUrl, body: body);
+    // var data = jsonDecode(res.body);
 
-    db.getConnection().then((connection) {
-      print('db connected');
-        // String sql = '';
-        // connection.query(sql).then((results) {
-        //   for(var row in results) {
-        //     print('data received from databaseru');
-        //   }
-        // });
-    });
-    print('Logging in ...');
-    // Navigator.pushNamed(context, '/Home');
+    // if (res.statusCode == 200) {
+    //   print('hello world');
+    // } else {
+    //   print(res.statusCode);
+    // }
+
+    // FlutterSession().set('data', 'hi thereeeeeeeee');
+
+    // var someValue = FlutterSession().get('data');
+    // print(someValue.toString());
   }
 
-  // var conn;
 
-  // Future connect() async {
-  //   var settings = new mysql.ConnectionSettings(
-  //     host: '10.0.2.2', 
-  //     port: 3306,
-  //     user: 'root',
-  //     password: '',
-  //     db: 'remmie'
-  //   );
-  //   var conn = await mysql.MySqlConnection.connect(settings);
-  // }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -78,11 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                       IconTextField(
                         hintText: "Email",
                         icon: Icons.email,
+                        controller: _email,
                         vertical: 20.0,
                       ),
                       IconTextField(
                         hintText: "Password",
                         icon: Icons.lock,
+                        controller: _password
                       ),
                     ],
                   ),
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: RaisedButton(
-                    onPressed:  () async {
+                    onPressed: () async {
                       // await connect();
                       // var results = await conn.query("INSERT INTO users(first_name,last_name,email,password) VALUES('aa','aa','aa','aa')");
                       // print(results);
@@ -134,8 +135,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
 
 _signup(BuildContext context) {
   //If Login Authetication returns true
