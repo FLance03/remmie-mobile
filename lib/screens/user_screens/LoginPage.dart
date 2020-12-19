@@ -17,11 +17,11 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _password = TextEditingController();
 
   _login(BuildContext context, String email, String password) async {
-    if (email != "" && password != "") {
+    if (email != "asdfghj" && password != "sdfghjk") {
       print('Logging in...');
       String apiUrl = Api.login;
-      var body = json.encode({"email": email, "password": password});
-      final res = await http.post(apiUrl, body: body);
+      var body = json.encode({"email": "fl@gmail.com", "password": "123"});
+      var res = await http.post(apiUrl, body: body);
       var data = jsonDecode(res.body);
 
       if (data['msg'] == "SUCCESS") {
@@ -41,6 +41,18 @@ class _LoginPageState extends State<LoginPage> {
         await session.set("usertype", data['user_type']);
         await session.set("firstname", data['first_name']);
         await session.set("lastname", data['last_name']);
+        
+        apiUrl = Api.checkStatus;
+        body = json.encode({"userid": data['id']});
+        res = await http.post(apiUrl, body: body);
+        data = jsonDecode(res.body);
+        if (data['msg'] == "SUCCESS") {
+          print("USER IS BOOKED");
+          await session.set("isBooked", true);
+        } else {
+          print("USER IS NOT BOOKED");
+           await session.set("isBooked", false);
+        }
 
         print("Success! Logged in.");
         Navigator.pushNamed(context, '/Home');

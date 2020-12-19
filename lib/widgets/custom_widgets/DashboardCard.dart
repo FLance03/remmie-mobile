@@ -5,7 +5,6 @@ class DashboardCard extends StatelessWidget {
 
   DashboardCard({@required this.status, this.image});
   Widget build(BuildContext context) {
-    print(this.status);
     if (this.status == "BOOKED") {
       return Container(
         color: Colors.transparent,
@@ -70,7 +69,7 @@ class DashboardCard extends StatelessWidget {
       return Container(
         color: Colors.transparent,
         margin: EdgeInsets.only(
-          top: 30,
+          top: 0,
           left: 20,
           right: 20,
         ),
