@@ -8,43 +8,23 @@ class DisplayDrawer extends StatelessWidget {
     return Drawer(
         child: Column(
       children: <Widget>[
-        ListTile(
+        ExpansionTile(
           title: Text('Profile'),
-          onTap: () {
-            // Navigator.pop(context);
-          },
+          children: <Widget>[
+            Text('Fletcher Chua'),
+            Text('flance@gmail.com'),
+          ],
         ),
-        ListTile(
-          title: Container(
-            child: Row(
-              children: <Widget>[
-                Text("Notifications"),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      padding: EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        notificationsCnt.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            // Navigator.pop(context);
-          },
+        ExpansionTile(
+          title: Text("Notifications"),
+          trailing: Text('5'),
+          children: <Widget>[
+            Text('Notif 1'),
+            Text('Notif 2'),
+            Text('Notif 3'),
+            Text('Notif 4'),
+            Text('Notif 5'),
+          ],
         ),
         ListTile(
             title: Text('Logout'),

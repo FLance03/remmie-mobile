@@ -5,31 +5,30 @@ class PreviewImages {
   String image;
 }
 class HotelDetailsPage extends StatelessWidget {
-  final isBooked = false;
   final List<Widget> previewImages = [
     Image.asset(
       'assets/room2.jpg',
-      width: 130,
+      width: 195,
       fit: BoxFit.fill,
     ),
     Image.asset(
       'assets/room4.jpg',
-      width: 130,
+      width: 195,
       fit: BoxFit.fill,
     ),
     Image.asset(
       'assets/service2.jpg',
-      width: 130,
+      width: 195,
       fit: BoxFit.fill,
     ),
     Image.asset(
       'assets/room3.jpg',
-      width: 130,
+      width: 195,
       fit: BoxFit.fill,
     ),
     Image.asset(
       'assets/fireworks.jpg',
-      width: 130,
+      width: 195,
       fit: BoxFit.fill,
     ),
   ];
@@ -49,7 +48,7 @@ class HotelDetailsPage extends StatelessWidget {
                   image: 'assets/holidayhotel.jpg',
                   name: 'Holiday Plaza Hotel',
                   description: 'Superior suite • 2 bedrooms • 1 living room',
-                  stars: 3,
+                  stars: 5,
                   height: 180.0,
                 ),
               ),
