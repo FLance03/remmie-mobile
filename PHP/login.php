@@ -12,9 +12,7 @@
         $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
         $query = mysqli_query($conn, $sql);
-        echo $conn->error;
         $result = mysqli_fetch_array($query);
-
         if(isset($result) && $result != null){
             $data['first_name'] = $result['first_name'];
             $data['last_name'] = $result['last_name'];
