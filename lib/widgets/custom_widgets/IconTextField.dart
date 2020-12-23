@@ -39,13 +39,13 @@ class IconTextField extends StatelessWidget {
               ),
             ),
           ),
-          DisplayBottomText(),
+          displayBottomText(),
           
         ],
       ),
     );
   }
-  Widget DisplayBottomText() {
+  Widget displayBottomText() {
     return bottomText!='' ? 
           Padding(
             padding: EdgeInsets.only(left: 10.0),

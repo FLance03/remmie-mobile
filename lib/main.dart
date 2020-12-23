@@ -33,7 +33,7 @@ ThemeData _theme() {
 
 RouteFactory _routes() {
   return (settings) {
-    // final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
+    final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
     Widget screen;
     switch (settings.name) {
       case TestRoute:
@@ -70,7 +70,7 @@ RouteFactory _routes() {
         screen = AnnouncementDetailsPage();
         break;
       case HotelDetails:
-        screen = HotelDetailsPage();
+        screen = HotelDetailsPage(id: arguments['id']);
         break;
       default:
         return null;

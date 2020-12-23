@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../api.dart';
@@ -7,9 +6,10 @@ import '../../widgets/widgets.dart';
 
 class Hotels {
   final String imageUrl,name,description;
-  final int stars;
+  final int id,stars;
 
   Hotels({
+    this.id,
     this.imageUrl,
     this.name,
     this.description,
@@ -17,7 +17,8 @@ class Hotels {
   });
   factory Hotels.fromJson(Map<String, dynamic> jsonData) {
     return Hotels(
-      imageUrl: "http://192.168.0.59/flutter/remmie/"+jsonData['imageUrl'],
+      id: int.parse(jsonData['id']),
+      imageUrl: Api.address + Api.imageRoute + jsonData['imageUrl'],
       name: jsonData['name'],
       description: jsonData['description'],
       stars: double.parse(jsonData['stars']).round(),
@@ -76,7 +77,7 @@ class _HotelsPageState extends State<HotelsPage> {
     List<Hotels> getHotels;
 
     if (count == 0){
-      getHotels = await GetHotelData();
+      getHotels = await getHotelData();
       if (getHotels != null){
         for (int i=0 ; i<getHotels.length ; i++){
           setState(() {
@@ -86,6 +87,7 @@ class _HotelsPageState extends State<HotelsPage> {
                 name: getHotels[i].name,
                 description: getHotels[i].description,
                 stars: getHotels[i].stars,
+                onTap: () => _hoteldetails(context,getHotels[i].id),
               )
             );
           });
@@ -98,7 +100,7 @@ class _HotelsPageState extends State<HotelsPage> {
   }
 }
 
-Future<List<Hotels>> GetHotelData() async{
+Future<List<Hotels>> getHotelData() async{
   final String apiUrl = Api.hotelpage;
 
   final response = await http.get(apiUrl);
@@ -106,7 +108,7 @@ Future<List<Hotels>> GetHotelData() async{
   if (response.statusCode == 200) {
     List hotelData = json.decode(response.body);
 
-    if (hotelData[0]['size'] == 0){
+    if (hotelData[0]['success'] == 0){
       return null;
     }else {
       return hotelData
@@ -116,7 +118,8 @@ Future<List<Hotels>> GetHotelData() async{
   } else{
     print("We were not able to successfully download the json data.");
   }
+  return null;
 }
-_hoteldetails(BuildContext context) {
-  Navigator.pushNamed(context, '/HotelDetails');
+_hoteldetails(BuildContext context,int id) {
+  Navigator.pushNamed(context, '/HotelDetails',arguments:{"id":id});
 }

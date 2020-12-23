@@ -81,8 +81,6 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
     return DefaultTabController(
       length: 2,
       child: Builder(builder: (BuildContext context) {
-        final TabController tabController = DefaultTabController.of(context);
-
         return Scaffold(
           appBar: AppBar(
             title: Text('Room Service'),

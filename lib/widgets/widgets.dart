@@ -15,4 +15,5 @@ export 'custom_widgets/HomeCard.dart';
 export 'custom_widgets/HomeAnnouncement.dart';
 export 'custom_widgets/DashboardCard.dart';
 export 'custom_widgets/BottomNavBar.dart';
+export 'custom_widgets/AnnouncementDetailsPageStateless.dart';
 
