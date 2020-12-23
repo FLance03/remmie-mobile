@@ -67,9 +67,7 @@ class AnnouncementDetailsPageStateless extends StatelessWidget {
             ),
           ],
         ),
-        endDrawer: DisplayDrawer(
-          notificationsCnt: 1,
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(
           currentIndex: 0,
           forcePush: true,

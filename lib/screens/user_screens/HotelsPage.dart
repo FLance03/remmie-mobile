@@ -66,9 +66,7 @@ class _HotelsPageState extends State<HotelsPage> {
             // ),
           // ]
         ),
-        endDrawer: DisplayDrawer(
-          notificationsCnt: 1,
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(currentIndex: 1),
       ),
     );

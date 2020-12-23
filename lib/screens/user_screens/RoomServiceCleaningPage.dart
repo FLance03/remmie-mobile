@@ -32,9 +32,7 @@ class RoomServiceCleaningPage extends StatelessWidget {
           ),
         ],
       ),
-      endDrawer: DisplayDrawer(
-        notificationsCnt: 1,
-      ),
+      endDrawer: DisplayDrawer(),
     );
   }
 }

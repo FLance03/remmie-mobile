@@ -6,20 +6,15 @@
         $json = file_get_contents("php://input");
         $post = json_decode($json, true);
         
-        $email = $post['email'];
-        $password = $post['password'];
+        $userid = $post['userid'];
         
-        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+        $sql = "SELECT * FROM reservations WHERE user_id='$userid'";
 
         $query = mysqli_query($conn, $sql);
+        echo $conn->error;
         $result = mysqli_fetch_array($query);
+
         if(isset($result) && $result != null){
-            $data['id'] = $result['id'];
-            $data['email'] = $result['email'];
-            $data['password'] = $result['password'];
-            $data['user_type'] = $result['user_type'];
-            $data['first_name'] = $result['first_name'];
-            $data['last_name'] = $result['last_name'];
             $data['msg'] = "SUCCESS";
             echo json_encode($data);
         }else{

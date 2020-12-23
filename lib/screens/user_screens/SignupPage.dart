@@ -168,6 +168,10 @@ class _SignupPageState extends State<SignupPage> {
                         controller: _email,
                       ),
                       IconTextField(
+                        hintText: "Email",
+                        icon: Icons.email,
+                      ),
+                      IconTextField(
                         hintText: "Password",
                         icon: Icons.lock,
                         vertical: 0,

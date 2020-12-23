@@ -13,43 +13,68 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String apiUrl = Api.login;
-  String email = "fletcher";
-  String password = "123";
-
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
 
-  var body = json.encode({"email": "fl@gmail.com", "password": "123"});
+  _login(BuildContext context, String email, String password) async {
+    if (email != "asdfghj" && password != "sdfghjk") {
+      print('Logging in...');
+      String apiUrl = Api.login;
+      var body = json.encode({"email": "guest@gmail.com", "password": "guest"});
+      var res = await http.post(apiUrl, body: body);
+      var data = jsonDecode(res.body);
 
-  _login(BuildContext context) async {
-    print('Logging in...');
-    final res = await http.post(apiUrl, body: body);
-    var data = jsonDecode(res.body);
+      if (data['msg'] == "SUCCESS") {
+        print("==== displaying data ====");
+        print(data['id']);
+        print(data['email']);
+        print(data['password']);
+        print(data['user_type']);
+        print(data['first_name']);
+        print(data['last_name']);
+        print("=========================");
 
-    if (res.statusCode == 200){
-      print(data['first_name']);
-      print(data['last_name']);
-      print(data['email']);
-      print(data['password']);
+        var session = FlutterSession();
+        await session.set("id", data['id']);
+        await session.set("email", data['email']);
+        await session.set("password", data['password']);
+        await session.set("usertype", data['user_type']);
+        await session.set("firstname", data['first_name']);
+        await session.set("lastname", data['last_name']);
+        
+        apiUrl = Api.checkStatus;
+        body = json.encode({"userid": data['id']});
+        res = await http.post(apiUrl, body: body);
+        data = jsonDecode(res.body);
+        if (data['msg'] == "SUCCESS") {
+          print("USER IS BOOKED");
+          await session.set("isBooked", true);
+        } else {
+          print("USER IS NOT BOOKED");
+           await session.set("isBooked", false);
+        }
+
+        print("Success! Logged in.");
+        Navigator.pushNamed(context, '/Home');
+        _email.clear();
+        _password.clear();
+      } else {
+        print(res.statusCode);
+        print("Unauthorized email or password.");
+      }
+
+      //Retrieving session data
+      // dynamic sessionValue = await FlutterSession().get("first_name");
+      // print(sessionValue);
+      // sessionValue = await FlutterSession().get("last_name");
+      // print(sessionValue);
+      // sessionValue = await FlutterSession().get("email");
+      // print(sessionValue);
+      // sessionValue = await FlutterSession().get("password");
+      // print(sessionValue);
     } else {
-      print(res.statusCode);
+      print('No input. Please input email and password.');
     }
-    
-    var session = FlutterSession();
-    await session.set("first_name", data['first_name']);
-    await session.set("last_name", data['last_name']);
-    await session.set("email", data['email']);
-    await session.set("password", data['password']);
-
-    dynamic sessionValue = await FlutterSession().get("first_name");
-    print(sessionValue);
-    sessionValue = await FlutterSession().get("last_name");
-    print(sessionValue);
-    sessionValue = await FlutterSession().get("email");
-    print(sessionValue);
-    sessionValue = await FlutterSession().get("password");
-    print(sessionValue);
   }
 
   @override
@@ -92,21 +117,17 @@ class _LoginPageState extends State<LoginPage> {
                         vertical: 20.0,
                       ),
                       IconTextField(
-                        hintText: "Password",
-                        icon: Icons.lock,
-                        controller: _password
-                      ),
+                          hintText: "Password",
+                          icon: Icons.lock,
+                          controller: _password),
                     ],
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: RaisedButton(
-                    onPressed: () async {
-                      // await connect();
-                      // var results = await conn.query("INSERT INTO users(first_name,last_name,email,password) VALUES('aa','aa','aa','aa')");
-                      // print(results);
-                      _login(context);
+                    onPressed: () {
+                      _login(context, _email.text, _password.text);
                     },
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
