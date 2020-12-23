@@ -117,9 +117,10 @@ class _LoginPageState extends State<LoginPage> {
                         vertical: 20.0,
                       ),
                       IconTextField(
-                          hintText: "Password",
-                          icon: Icons.lock,
-                          controller: _password),
+                        hintText: "Password",
+                        icon: Icons.lock,
+                        controller: _password
+                      ),
                     ],
                   ),
                 ),

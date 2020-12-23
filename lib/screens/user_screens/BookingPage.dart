@@ -12,6 +12,10 @@ class _BookingPageState extends State<BookingPage>
     with SingleTickerProviderStateMixin {
   int selectedRadioTile, selectedRadio, roomCnt;
   double totalPrice;
+  
+  TextEditingController _name = TextEditingController();
+  TextEditingController _cardnumber = TextEditingController();
+
   bool flag;
 
   final List<Tab> bookingTabs = <Tab>[
@@ -48,12 +52,19 @@ class _BookingPageState extends State<BookingPage>
   }
 
   _increment() {
+
+
+    //Add value to totalPrice based on room type
+
+
     setState(() {
       roomCnt++;
     });
   }
 
   _decrement() {
+    //Decrease value from totalPrice based on room type
+
     if (roomCnt > 1) {
       setState(() {
         roomCnt--;
@@ -222,11 +233,13 @@ class _BookingPageState extends State<BookingPage>
                                           hintText: "Name",
                                           icon: Icons.person,
                                           vertical: 20.0,
+                                          controller: _name
                                         ),
                                         IconTextField(
                                           hintText: "Card Number",
                                           icon: Icons.credit_card,
                                           vertical: 20.0,
+                                          controller: _cardnumber
                                         ),
                                       ],
                                     ),
