@@ -20,7 +20,7 @@ class HomeCard extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            Image.asset(
+            Image.network(
               image,
               width: MediaQuery.of(context).size.width,
               height: height != null ? height : 200,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/screens.dart';
 
 //Screens as String Variables
-// const TestRoute = '/';
+const TestRoute = '/';
 // const Login = '/Login';
 const Login = '/';
 const Signup = '/Signup';
@@ -33,12 +33,12 @@ ThemeData _theme() {
 
 RouteFactory _routes() {
   return (settings) {
-    // final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
+    final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
     Widget screen;
     switch (settings.name) {
-      // case TestRoute:
-      //   screen = LoginPage();
-      //   break;
+      case TestRoute:
+        screen = HotelsPage();
+        break;
       case Login:
         screen = LoginPage();
         break;
@@ -70,7 +70,7 @@ RouteFactory _routes() {
         screen = AnnouncementDetailsPage();
         break;
       case HotelDetails:
-        screen = HotelDetailsPage();
+        screen = HotelDetailsPage(id: arguments['id']);
         break;
       default:
         return null;
