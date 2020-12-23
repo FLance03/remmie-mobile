@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
 class AnnouncementDetailsPage extends StatelessWidget {
-  
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +52,7 @@ class AnnouncementDetailsPage extends StatelessWidget {
             ),
           ],
         ),
-        endDrawer: DisplayDrawer(
-          notificationsCnt: 1,
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(
           currentIndex: 0,
           forcePush: true,

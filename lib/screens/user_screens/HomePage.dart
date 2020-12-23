@@ -67,9 +67,7 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
                 ),
-                endDrawer: DisplayDrawer(
-                  notificationsCnt: 1,
-                ),
+                endDrawer: DisplayDrawer(),
                 bottomNavigationBar: BottomNavBar(currentIndex: 0),
               );
             } else {
@@ -80,9 +78,7 @@ class _HomePageState extends State<HomePage> {
                   body: DashboardCard(
                     status: "NOT BOOKED",
                   ),
-                  endDrawer: DisplayDrawer(
-                    notificationsCnt: 1,
-                  ),
+                  endDrawer: DisplayDrawer(),
                   bottomNavigationBar: BottomNavBar(currentIndex: 0),
                 ),
               );

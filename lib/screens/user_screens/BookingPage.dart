@@ -303,9 +303,7 @@ class _BookingPageState extends State<BookingPage>
                 ],
               ),
             ),
-            endDrawer: DisplayDrawer(
-              notificationsCnt: 1,
-            ),
+            endDrawer: DisplayDrawer(),
           );
         }),
       ),

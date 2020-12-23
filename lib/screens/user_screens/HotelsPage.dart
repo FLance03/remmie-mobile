@@ -32,9 +32,7 @@ class HotelsPage extends StatelessWidget {
             ),
           ]
         ),
-        endDrawer: DisplayDrawer(
-          notificationsCnt: 1,
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(currentIndex: 1),
       ),
     );

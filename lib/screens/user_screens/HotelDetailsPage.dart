@@ -87,9 +87,7 @@ class HotelDetailsPage extends StatelessWidget {
             ],
           ),
         ),
-        endDrawer: DisplayDrawer(
-          notificationsCnt: 1,
-        ),
+        endDrawer: DisplayDrawer(),
         bottomNavigationBar: BottomNavBar(currentIndex: 1, forcePush: true,),
       ),
     );

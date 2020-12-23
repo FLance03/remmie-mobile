@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
     if (email != "asdfghj" && password != "sdfghjk") {
       print('Logging in...');
       String apiUrl = Api.login;
-      var body = json.encode({"email": "fl@gmail.com", "password": "123"});
+      var body = json.encode({"email": "guest@gmail.com", "password": "guest"});
       var res = await http.post(apiUrl, body: body);
       var data = jsonDecode(res.body);
 

@@ -10,6 +10,7 @@ export 'custom_widgets/HotelList.dart';
 export 'custom_widgets/HotelItem.dart';
 export 'custom_widgets/Tabs.dart';
 export 'custom_widgets/IconTextField.dart';
+export 'custom_widgets/NotificationTile.dart';
 export 'custom_widgets/Product.dart';
 export 'custom_widgets/HomeCard.dart';
 export 'custom_widgets/HomeAnnouncement.dart';
