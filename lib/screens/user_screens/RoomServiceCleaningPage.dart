@@ -9,8 +9,8 @@ import '../../widgets/widgets.dart';
 
 class RoomServiceCleaningPage extends StatelessWidget {
   void requestCleaning() async{
-    await FlutterSession().set("id",1);
-    await FlutterSession().set("reservation_id",1);
+    // await FlutterSession().set("id",1);
+    // await FlutterSession().set("reservation_id",1);
     final apiUrl = Api.roomcleaning;
     final userId = await FlutterSession().get("id");
     final reservationId = await FlutterSession().get("id");

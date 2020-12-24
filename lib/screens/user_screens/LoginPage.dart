@@ -16,11 +16,38 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
 
+  String reportEmail = '';
+  String reportPass = '';
+
   _login(BuildContext context, String email, String password) async {
-    if (email != "asdfghj" && password != "sdfghjk") {
+    bool isOkay = true;
+    String email = _email.text;
+    String password = _password.text;
+    
+    if (email == ''){
+      setState(() {
+        reportEmail = 'This field is required';
+      });
+      isOkay = false;
+    }else {
+      setState(() {
+        reportEmail = '';
+      });
+    }
+    if (password == ''){
+      setState(() {
+        reportPass = 'This field is required';
+      });
+      isOkay = false;
+    }else {
+      setState(() {
+        reportPass = '';
+      });
+    }
+    if (isOkay) {
       print('Logging in...');
       String apiUrl = Api.login;
-      var body = json.encode({"email": "guest@gmail.com", "password": "guest"});
+      var body = json.encode({"email": email, "password": password});
       var res = await http.post(apiUrl, body: body);
       var data = jsonDecode(res.body);
 
@@ -48,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
         data = jsonDecode(res.body);
         if (data['msg'] == "SUCCESS") {
           print("USER IS BOOKED");
+          await session.set("reservation_id", data['reservation_id']);
           await session.set("hotel_id", data['hotel_id']);
           await session.set("isBooked", true);
         } else {
@@ -82,88 +110,100 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Container(
-          color: Color(0xFFF2F2F2),
-          padding: EdgeInsets.symmetric(vertical: 50.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
+        backgroundColor: Color(0xFFF2F2F2),
+        // resizeToAvoidBottomPadding: true,
+        body: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tightFor(
+              height: MediaQuery.of(context).size.height,
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 50.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
                     child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.android,
-                      size: 80.0,
-                      color: Color(0xFF2F2F2F),
+                      children: <Widget>[
+                        Icon(
+                          Icons.android,
+                          size: 80.0,
+                          color: Color(0xFF2F2F2F),
+                        ),
+                        Text(
+                          'remmie',
+                          style: TextStyle(
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'remmie',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.0,
+                  ),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: <Widget>[
+                        IconTextField(
+                          hintText: "Email",
+                          icon: Icons.email,
+                          controller: _email,
+                          vertical: 20.0,
+                          bottomText: reportEmail,
+                        ),
+                        IconTextField(
+                          hintText: "Password",
+                          icon: Icons.lock,
+                          controller: _password,
+                          bottomText: reportPass,
+                          obscureText: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: RaisedButton(
+                      onPressed: () {
+                        _login(context, _email.text, _password.text);
+                      },
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 40.0),
+                        child: Text('LOGIN',
+                            style: TextStyle(
+                              letterSpacing: 1.0,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF2F2F2F),
+                            )),
                       ),
                     ),
-                  ],
-                )),
-                Form(
-                  key: formKey,
-                  child: Column(
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      IconTextField(
-                        hintText: "Email",
-                        icon: Icons.email,
-                        controller: _email,
-                        vertical: 20.0,
-                      ),
-                      IconTextField(
-                        hintText: "Password",
-                        icon: Icons.lock,
-                        controller: _password
+                      Text("Haven't registered yet?   "),
+                      InkWell(
+                        onTap: () => _signup(context),
+                        child: Text(
+                          "Tap Here",
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: RaisedButton(
-                    onPressed: () {
-                      _login(context, _email.text, _password.text);
-                    },
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 40.0),
-                      child: Text('LOGIN',
-                          style: TextStyle(
-                            letterSpacing: 1.0,
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF2F2F2F),
-                          )),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Haven't registered yet?   "),
-                    InkWell(
-                      onTap: () => _signup(context),
-                      child: Text(
-                        "Tap Here",
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ]),
+                ]
+              ),
+            ),
+          ),
         ),
       ),
     );

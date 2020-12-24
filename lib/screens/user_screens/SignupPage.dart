@@ -116,117 +116,122 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Center(
-          child: Container(
-            color: Color(0xFFF2F2F2),
-            padding: EdgeInsets.only(top: 50.0),
-            child: ListView(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                    child: Column(
+        backgroundColor: Color(0xFFF2F2F2),
+        // resizeToAvoidBottomPadding: false,
+        body: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
+            ),
+            child: Center(
+              child: Container(
+              // padding: EdgeInsets.symmetric(vertical: 50.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Icon(
-                      Icons.android,
-                      size: 70.0,
-                      color: Color(0xFF2F2F2F),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.android,
+                            size: 70.0,
+                            color: Color(0xFF2F2F2F),
+                          ),
+                          Text(
+                            'remmie',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      'remmie',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.0,
+                    Form(
+                      key: formKey,
+                      child: Column(
+                        children: <Widget>[
+                          IconTextField(
+                            hintText: "First Name",
+                            icon: Icons.person,
+                            vertical: 0,
+                            bottomText: reportFirst,
+                            controller: _firstName,
+                          ),
+                          IconTextField(
+                            hintText: "Last Name",
+                            icon: Icons.person,
+                            vertical: 0,
+                            bottomText: reportLast,
+                            controller: _lastName,
+                          ),
+                          IconTextField(
+                            hintText: "Email",
+                            icon: Icons.email,
+                            vertical: 0,
+                            bottomText: reportEmail,
+                            controller: _email,
+                          ),
+                          IconTextField(
+                            hintText: "Password",
+                            icon: Icons.lock,
+                            vertical: 0,
+                            bottomText: reportPass,
+                            controller: _password,
+                          ),
+                          IconTextField(
+                            hintText: "Confirm Password",
+                            icon: Icons.lock,
+                            vertical: 0,
+                            bottomText: reportConfirmPass,
+                            controller: _confirmPassword,
+                          ),
+                        ],
+                      ),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        await _confirm(context);
+                      },
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.0),
+                        child: Text('SIGNUP',
+                            style: TextStyle(
+                              letterSpacing: 1.0,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF2F2F2F),
+                            )),
+                      ),
+                    ),
+                    RaisedButton(
+                      onPressed: (){
+                        _back(context);
+                      },
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 50.0),
+                        child: Text('BACK',
+                            style: TextStyle(
+                              letterSpacing: 1.0,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF2F2F2F),
+                            )),
                       ),
                     ),
                   ],
-                )),
-                Form(
-                  key: formKey,
-                  child: Column(
-                    children: <Widget>[
-                      IconTextField(
-                        hintText: "First Name",
-                        icon: Icons.person,
-                        vertical: 0,
-                        bottomText: reportFirst,
-                        controller: _firstName,
-                      ),
-                      IconTextField(
-                        hintText: "Last Name",
-                        icon: Icons.person,
-                        vertical: 0,
-                        bottomText: reportLast,
-                        controller: _lastName,
-                      ),
-                      IconTextField(
-                        hintText: "Email",
-                        icon: Icons.email,
-                        vertical: 0,
-                        bottomText: reportEmail,
-                        controller: _email,
-                      ),
-                      IconTextField(
-                        hintText: "Email",
-                        icon: Icons.email,
-                      ),
-                      IconTextField(
-                        hintText: "Password",
-                        icon: Icons.lock,
-                        vertical: 0,
-                        bottomText: reportPass,
-                        controller: _password,
-                      ),
-                      IconTextField(
-                        hintText: "Confirm Password",
-                        icon: Icons.lock,
-                        vertical: 0,
-                        bottomText: reportConfirmPass,
-                        controller: _confirmPassword,
-                      ),
-                    ],
-                  ),
                 ),
-                RaisedButton(
-                  onPressed: () async {
-                    await _confirm(context);
-                  },
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40.0),
-                    child: Text('SIGNUP',
-                        style: TextStyle(
-                          letterSpacing: 1.0,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF2F2F2F),
-                        )),
-                  ),
-                ),
-                RaisedButton(
-                  onPressed: (){
-                    _back(context);
-                  },
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: Text('BACK',
-                        style: TextStyle(
-                          letterSpacing: 1.0,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF2F2F2F),
-                        )),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

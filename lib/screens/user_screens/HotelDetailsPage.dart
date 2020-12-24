@@ -62,9 +62,9 @@ void getHotelDetailsData() async{
       'id': widget.id.toString(),
     };
     
-    Uri uri = Uri.http('192.168.0.59', '/flutter/remmie/php/hoteldetail.php', queryParameters);
+    Uri uri = Uri.http(Api.ipaddress, '/flutter/remmie/php/hoteldetail.php', queryParameters);
     final detailResponse = await http.get(uri);
-    uri = Uri.http('192.168.0.59', '/flutter/remmie/php/hotel.php', queryParameters);
+    uri = Uri.http(Api.ipaddress, '/flutter/remmie/php/hotel.php', queryParameters);
     final hotelResponse = await http.get(uri);
 
     if (detailResponse.statusCode==200 && hotelResponse.statusCode==200) {
@@ -105,6 +105,7 @@ void getHotelDetailsData() async{
     }
   }
   void getBookingInformation() async {
+    // await FlutterSession().set("isBooked", false);
     if (flag==0 && await FlutterSession().get("isBooked")==false) {
       setState(() {
         flag = 1;
