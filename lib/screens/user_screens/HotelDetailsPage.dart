@@ -26,7 +26,7 @@ class HotelDetailsPage extends StatefulWidget {
   _HotelDetailsPageState createState() => _HotelDetailsPageState();
 }
 class _HotelDetailsPageState extends State<HotelDetailsPage> {
-  int count = 0;
+  int count = 0,flag = 0;
   bool isBooked = false;
   HotelItem hotelItem;
   List<Widget> previewImages = [
@@ -104,6 +104,13 @@ void getHotelDetailsData() async{
       print("We were not able to successfully download the json data.");
     }
   }
+  void getBookingInformation() async {
+    if (flag==0 && await FlutterSession().get("isBooked")==false) {
+      setState(() {
+        flag = 1;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     if (count == 0){
@@ -112,6 +119,7 @@ void getHotelDetailsData() async{
       });
       getHotelDetailsData();
     }
+    getBookingInformation();
     return SafeArea(
       child: 
       Scaffold(
@@ -135,7 +143,7 @@ void getHotelDetailsData() async{
               ),
               Container(
                   margin: EdgeInsets.only(bottom: 10, top: 10),
-                  child: FlatButton(
+                  child: flag==0 ? SizedBox() : FlatButton(
                     onPressed: () => _book(context),
                     color: Color(0xFF2F2F2F),
                     shape: RoundedRectangleBorder(

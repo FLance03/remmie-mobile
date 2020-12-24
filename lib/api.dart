@@ -9,5 +9,6 @@ class Api {
   static String checkStatus = address + "/flutter/remmie/php/checkStatus.php";
   static String getNotifCount = address + "/flutter/remmie/php/getNotifCount.php";
   static String tab = address + "/flutter/remmie/php/tab.php";
+  static String roomcleaning = address + "/flutter/remmie/php/roomcleaning.php";
 }
 
