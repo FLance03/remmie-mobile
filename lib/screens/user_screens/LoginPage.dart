@@ -48,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         data = jsonDecode(res.body);
         if (data['msg'] == "SUCCESS") {
           print("USER IS BOOKED");
+          await session.set("hotel_id", data['hotel_id']);
           await session.set("isBooked", true);
         } else {
           print("USER IS NOT BOOKED");
@@ -117,9 +118,10 @@ class _LoginPageState extends State<LoginPage> {
                         vertical: 20.0,
                       ),
                       IconTextField(
-                          hintText: "Password",
-                          icon: Icons.lock,
-                          controller: _password),
+                        hintText: "Password",
+                        icon: Icons.lock,
+                        controller: _password
+                      ),
                     ],
                   ),
                 ),

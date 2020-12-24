@@ -1,6 +1,6 @@
 class Api {
-  static String address = "http://192.168.0.59";
-  static String imageRoute = "/flutter/remmie/assets/";
+  static String address = "http://192.168.1.9";
+  static String imageRoute = address + "/flutter/remmie/assets/";
   static String login = address + "/flutter/remmie/php/login.php";
   static String signup = address + "/flutter/remmie/php/signup.php";
   static String hotelpage = address + "/flutter/remmie/php/hotel.php";

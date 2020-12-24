@@ -67,7 +67,7 @@ RouteFactory _routes() {
         screen = RoomServiceCleaningPage();
         break;
       case AnnouncementDetails:
-        screen = AnnouncementDetailsPage();
+        screen = AnnouncementDetailsPage(id: arguments['id']);
         break;
       case HotelDetails:
         screen = HotelDetailsPage(id: arguments['id']);

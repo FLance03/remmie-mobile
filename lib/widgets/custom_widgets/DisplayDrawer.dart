@@ -49,12 +49,14 @@ class DisplayDrawer extends StatefulWidget {
 }
 
 class _DisplayDrawerState extends State<DisplayDrawer> {
-  List<String> notifs = [];
+  List<String> notifs = <String>[];
   int notifCount;
 
   @override
   void initState() {
     _getNotifCount();
+    print('--------------------------------===');
+    print(notifs);
     super.initState();
   }
 
@@ -63,13 +65,14 @@ class _DisplayDrawerState extends State<DisplayDrawer> {
     var body = json.encode({"userid": await FlutterSession().get("id")});
     var res = await http.post(apiUrl, body: body);
     var data = jsonDecode(res.body);
-    var notifss = [];
     if (data['msg'] == "SUCCESS") {
       for (int i = 0; i < data['notifCount']; i++) {
-        notifss.add(data['notifs'][i]['message']);
+        setState(() {
+          notifs.add(data['notifs'][i]['message']);
+        });
       }
-      print(notifss);
-      print('------------------------------------');
+      // print(notifs);
+      // print('------------notifss^------------------');
       // print(notifs[1]);
       // print(notifs[2]);
       // print(notifs[3]);
@@ -77,9 +80,10 @@ class _DisplayDrawerState extends State<DisplayDrawer> {
 
       setState(() {
         notifCount = data['notifCount'];
-        notifs = notifss;
       });
-      print(notifs);
+      // print(notifs);
+      // print(notifCount);
+      // print('-------------notifs^-------------------');
     }
   }
 
@@ -105,11 +109,38 @@ class _DisplayDrawerState extends State<DisplayDrawer> {
         ExpansionTile(
           title: Text('Profile'),
           children: <Widget>[
-            NotificationTile(
-              notification: 'Fletcher Chua',
+            FutureBuilder(
+              future: FlutterSession().get("firstname"),
+              builder: (context, fname) {
+                if(fname.hasData == null){
+                  return Container();
+                } else {
+                  return FutureBuilder(
+                    future: FlutterSession().get("lastname"),
+                    builder: (context, lname) {
+                      if(lname.hasData == null){
+                        return Container();
+                      } else {
+                        return NotificationTile(
+                          notification: fname.data + ' ' + lname.data,
+                        );
+                      }
+                    }
+                  );
+                }
+              }
             ),
-            NotificationTile(
-              notification: 'flance@gmail.com',
+            FutureBuilder(
+              future: FlutterSession().get("email"),
+              builder: (context, email) {
+                if(email.hasData == null){
+                  return Container();
+                } else {
+                  return NotificationTile(
+                    notification: email.data,
+                  );
+                }
+              }
             ),
           ],
         ),
@@ -117,36 +148,13 @@ class _DisplayDrawerState extends State<DisplayDrawer> {
           title: Text('Notifications'),
           trailing: Text(notifCount.toString()),
           children: <Widget>[
-            // NotificationTile(
-            //   notification: this.notifs[0],
-            // ),
-            // NotificationTile(
-            //   notification: this.notifs[1],
-            // ),
-            // NotificationTile(
-            //   notification: this.notifs[2],
-            // ),
-            // NotificationTile(
-            //   notification: notifs[3],
-            // ),
-            // NotificationTile(
-            //   notification: notifs[4],
-            // ),
-            // NotificationTile(
-            //   notification: notifs[5],
-            // ),
-            // NotificationTile(
-            //   notification: notifs[6],
-            // ),
             ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: notifCount,
               itemBuilder: (BuildContext context, int index) {
-                print(index);
                 return NotificationTile(
-                  // notification: notifs[index],
-                  notification: 'hello world',
+                  notification: notifs[index],
                 );
               },
             ),
