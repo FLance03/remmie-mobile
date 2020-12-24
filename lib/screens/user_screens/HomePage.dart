@@ -13,6 +13,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,7 +75,15 @@ class _HomePageState extends State<HomePage> {
             } else {
               return SafeArea(
                 child: Scaffold(
-                  appBar: CustomAppBar(),
+                  appBar: AppBar(
+                  title: Text('remmie',
+                      style: TextStyle(
+                        letterSpacing: 1.0,
+                        color: Colors.black,
+                      )),
+                  centerTitle: true,
+                  leading: new Container(),
+                ),
                   resizeToAvoidBottomPadding: false,
                   body: DashboardCard(
                     status: "NOT BOOKED",

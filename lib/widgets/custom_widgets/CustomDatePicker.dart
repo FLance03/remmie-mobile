@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// lel :) - daniel
+//ignore: must_be_immutable
 class CustomDatePicker extends StatefulWidget {
   final double width;
   final double height;
   final String label;
+  TextEditingController controller;
 
   CustomDatePicker(
-      {@required this.width, @required this.height, @required this.label});
+      {@required this.width,
+      @required this.height,
+      @required this.label,
+      @required this.controller});
 
   @override
   _CustomDatePickerState createState() => _CustomDatePickerState();
@@ -15,7 +21,6 @@ class CustomDatePicker extends StatefulWidget {
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
   DateTime _dateTime;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,16 +54,15 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.0),
-                  child: Text(
-                    _dateTime == null
-                        ? 'Pick a Date'
-                        : DateFormat.yMMMMd('en_US')
-                            .format(_dateTime)
-                            .toString(),
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xFF2F2F2F),
+                  child: AbsorbPointer(
+                    child: TextField(
+                      controller: widget.controller,
+                      autofocus: false,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xFF2F2F2F),
+                      ),
                     ),
                   ),
                 ),
@@ -79,6 +83,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     setState(() {
                       _dateTime = date;
                     });
+                    widget.controller.text = 
+                        DateFormat.yMMMMd('en_US').format(_dateTime).toString();
+                        // YYYY-MM-DD HH:MI:SS.
                   })
                 },
               ),

@@ -6,7 +6,7 @@ export 'user_screens/SignupPage.dart';
 export 'user_screens/HomePage.dart';
 export 'user_screens/HotelsPage.dart';
 export 'user_screens/BookingPage.dart';
-export 'user_screens/CompletePage.dart';
+export 'user_screens/BookingCompletePage.dart';
 export 'user_screens/RoomServiceProductsPage.dart';
 export 'user_screens/RoomServiceMainPage.dart';
 export 'user_screens/RoomServiceCleaningPage.dart';

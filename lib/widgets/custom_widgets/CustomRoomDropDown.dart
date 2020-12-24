@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class CustomRoomDropDown extends StatefulWidget {
   final double width;
   final double height;
+  TextEditingController controller;
 
-  CustomRoomDropDown({@required this.width, @required this.height});
+  CustomRoomDropDown({@required this.width, @required this.height, @required this.controller});
 
   @override
   _CustomRoomDropDownState createState() => _CustomRoomDropDownState();
@@ -15,6 +17,7 @@ class _CustomRoomDropDownState extends State<CustomRoomDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    widget.controller.text = selected;
     return Container(
       width: widget.width,
       height: widget.height,
@@ -60,6 +63,7 @@ class _CustomRoomDropDownState extends State<CustomRoomDropDown> {
                   setState(() {
                     selected = newValue;
                   });
+                  widget.controller.text = selected;
                 },
                 value: selected,
                 isExpanded: true,

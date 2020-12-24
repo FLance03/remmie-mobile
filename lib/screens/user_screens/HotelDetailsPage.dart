@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../api.dart';
 import '../../widgets/widgets.dart';
+
 class HotelDetails {
   String imageUrl;
 
@@ -15,9 +16,11 @@ class HotelDetails {
     );
   }
 }
+
 class PreviewImages {
   String image;
 }
+
 class HotelDetailsPage extends StatefulWidget {
   final int id;
 
@@ -25,6 +28,7 @@ class HotelDetailsPage extends StatefulWidget {
   @override
   _HotelDetailsPageState createState() => _HotelDetailsPageState();
 }
+
 class _HotelDetailsPageState extends State<HotelDetailsPage> {
   int count = 0;
   bool isBooked = false;
@@ -56,27 +60,31 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
     //   fit: BoxFit.fill,
     // ),
   ];
-  
-void getHotelDetailsData() async{
+
+  void getHotelDetailsData() async {
     final queryParameters = {
       'id': widget.id.toString(),
     };
-    
-    Uri uri = Uri.http('192.168.0.59', '/flutter/remmie/php/hoteldetail.php', queryParameters);
+
+    Uri uri = Uri.http(
+        Api.ipaddress, '/flutter/remmie/php/hoteldetail.php', queryParameters);
     final detailResponse = await http.get(uri);
-    uri = Uri.http('192.168.0.59', '/flutter/remmie/php/hotel.php', queryParameters);
+    uri = Uri.http(
+        Api.ipaddress, '/flutter/remmie/php/hotel.php', queryParameters);
     final hotelResponse = await http.get(uri);
 
-    if (detailResponse.statusCode==200 && hotelResponse.statusCode==200) {
+    if (detailResponse.statusCode == 200 && hotelResponse.statusCode == 200) {
       List hotelDetailsData = json.decode(detailResponse.body);
-      List <HotelDetails> hotelDetails;
+      List<HotelDetails> hotelDetails;
       List hotelData = json.decode(hotelResponse.body);
       List<Hotels> hotels;
 
-        print(hotelDetailsData);
-      if (hotelDetailsData[0]['size'] != 0){
-        hotelDetails = hotelDetailsData.map((detail) => new HotelDetails.fromJson(detail)).toList();
-        for (int i=0 ; i<hotelDetails.length ; i++){
+      print(hotelDetailsData);
+      if (hotelDetailsData[0]['size'] != 0) {
+        hotelDetails = hotelDetailsData
+            .map((detail) => new HotelDetails.fromJson(detail))
+            .toList();
+        for (int i = 0; i < hotelDetails.length; i++) {
           setState(() {
             previewImages.add(
               Image.network(
@@ -100,69 +108,72 @@ void getHotelDetailsData() async{
           );
         });
       }
-    } else{
+    } else {
       print("We were not able to successfully download the json data.");
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    if (count == 0){
+    if (count == 0) {
       setState(() {
         count++;
       });
       getHotelDetailsData();
     }
     return SafeArea(
-      child: 
-      Scaffold(
+      child: Scaffold(
         appBar: CustomAppBar(),
         body: Container(
           child: Column(
             children: [
               Expanded(
                 flex: 6,
-                child: hotelItem==null ? SizedBox() : hotelItem,
+                child: hotelItem == null ? SizedBox() : hotelItem,
               ),
               Expanded(
                 flex: 3,
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: previewImages.length,
-                  itemBuilder: (context,index) {
-                    return previewImages[index];
-                  } 
+                    scrollDirection: Axis.horizontal,
+                    itemCount: previewImages.length,
+                    itemBuilder: (context, index) {
+                      return previewImages[index];
+                    }),
+              ),
+
+              Container(
+                margin: EdgeInsets.only(bottom: 10, top: 10),
+                child: FlatButton(
+                  onPressed: () => _book(context, widget.id),
+                  color: Color(0xFF2F2F2F),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('BOOK',
+                        style: TextStyle(
+                          letterSpacing: 1.0,
+                          fontSize: 50.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        )),
+                  ),
                 ),
               ),
-              Container(
-                  margin: EdgeInsets.only(bottom: 10, top: 10),
-                  child: FlatButton(
-                    onPressed: () => _book(context),
-                    color: Color(0xFF2F2F2F),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text('BOOK',
-                          style: TextStyle(
-                            letterSpacing: 1.0,
-                            fontSize: 50.0,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          )),
-                    ),
-                  ),
-                )
             ],
           ),
         ),
         endDrawer: DisplayDrawer(),
-        bottomNavigationBar: BottomNavBar(currentIndex: 1, forcePush: true,),
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: 1,
+          forcePush: true,
+        ),
       ),
     );
   }
 }
 
-_book(BuildContext context){
-  Navigator.pushNamed(context, '/Booking');
+_book(BuildContext context, int id) {
+  Navigator.pushNamed(context, '/Booking', arguments: {"id": id});
 }

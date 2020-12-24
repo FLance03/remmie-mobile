@@ -7,8 +7,7 @@
         $json = file_get_contents("php://input");
         $post = json_decode($json, true);
         
-        // $userid = $post['userid'];
-        $userid = 29;
+        $userid = $post['userid'];
         $sql = "SELECT * FROM notifications WHERE user_id='$userid'";
 
         $count = 0;

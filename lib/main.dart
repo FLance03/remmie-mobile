@@ -8,13 +8,14 @@ const Login = '/';
 const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
+const HotelDetails = '/HotelDetails';
 const Booking = '/Booking';
 const Complete = '/Complete';
 const RoomServiceMain = '/RoomServiceMain';
 const RoomServiceProducts = '/RoomServiceProducts';
 const RoomServiceCleaning = '/RoomServiceCleaning';
 const AnnouncementDetails = '/AnnouncementDetails';
-const HotelDetails = '/HotelDetails';
+
 
 Future main() async{
   runApp(MaterialApp(
@@ -51,11 +52,14 @@ RouteFactory _routes() {
       case Hotels:
         screen = HotelsPage();
         break;
+      case HotelDetails:
+        screen = HotelDetailsPage(id: arguments['id']);
+        break;
       case Booking:
-        screen = BookingPage();
+        screen = BookingPage(id: arguments['id']);
         break;
       case Complete:
-        screen = CompletePage();
+        screen = CompletePage(dateCheckin: arguments['date_checkin'], dateCheckout: arguments['date_checkout']);
         break;
       case RoomServiceMain:
         screen = RoomServiceMainPage();
@@ -68,9 +72,6 @@ RouteFactory _routes() {
         break;
       case AnnouncementDetails:
         screen = AnnouncementDetailsPage(id: arguments['id']);
-        break;
-      case HotelDetails:
-        screen = HotelDetailsPage(id: arguments['id']);
         break;
       default:
         return null;
