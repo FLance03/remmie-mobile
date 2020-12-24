@@ -48,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         data = jsonDecode(res.body);
         if (data['msg'] == "SUCCESS") {
           print("USER IS BOOKED");
+          await session.set("hotel_id", data['hotel_id']);
           await session.set("isBooked", true);
         } else {
           print("USER IS NOT BOOKED");

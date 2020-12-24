@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/screens.dart';
 
 //Screens as String Variables
-const TestRoute = '/';
+// const TestRoute = '/';
 // const Login = '/Login';
 const Login = '/';
 const Signup = '/Signup';
@@ -36,9 +36,9 @@ RouteFactory _routes() {
     final Map<String, dynamic> arguments = settings.arguments; //Needed for passing data between screens
     Widget screen;
     switch (settings.name) {
-      case TestRoute:
-        screen = HotelsPage();
-        break;
+      // case TestRoute:
+      //   screen = HotelsPage();
+      //   break;
       case Login:
         screen = LoginPage();
         break;
@@ -67,7 +67,7 @@ RouteFactory _routes() {
         screen = RoomServiceCleaningPage();
         break;
       case AnnouncementDetails:
-        screen = AnnouncementDetailsPage();
+        screen = AnnouncementDetailsPage(id: arguments['id']);
         break;
       case HotelDetails:
         screen = HotelDetailsPage(id: arguments['id']);

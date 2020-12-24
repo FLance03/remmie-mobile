@@ -8,7 +8,7 @@
         
         $userid = $post['userid'];
         
-        $sql = "SELECT * FROM reservations WHERE user_id='$userid'";
+        $sql = "SELECT * FROM reservations WHERE user_id='$userid' "; //where current date is less than 
 
         $query = mysqli_query($conn, $sql);
         echo $conn->error;
@@ -16,6 +16,7 @@
 
         if(isset($result) && $result != null){
             $data['msg'] = "SUCCESS";
+            $data['hotel_id'] = $result['hotel_id'];
             echo json_encode($data);
         }else{
             $data['msg'] = "ERROR";
