@@ -30,7 +30,7 @@ class HotelDetailsPage extends StatefulWidget {
 }
 
 class _HotelDetailsPageState extends State<HotelDetailsPage> {
-  int count = 0;
+  int count = 0,flag = 0;
   bool isBooked = false;
   HotelItem hotelItem;
   List<Widget> previewImages = [
@@ -65,12 +65,10 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
     final queryParameters = {
       'id': widget.id.toString(),
     };
-
-    Uri uri = Uri.http(
-        Api.ipaddress, '/flutter/remmie/php/hoteldetail.php', queryParameters);
+    
+    Uri uri = Uri.http(Api.ipaddress, '/flutter/remmie/php/hoteldetail.php', queryParameters);
     final detailResponse = await http.get(uri);
-    uri = Uri.http(
-        Api.ipaddress, '/flutter/remmie/php/hotel.php', queryParameters);
+    uri = Uri.http(Api.ipaddress, '/flutter/remmie/php/hotel.php', queryParameters);
     final hotelResponse = await http.get(uri);
 
     if (detailResponse.statusCode == 200 && hotelResponse.statusCode == 200) {
@@ -112,7 +110,14 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
       print("We were not able to successfully download the json data.");
     }
   }
-
+  void getBookingInformation() async {
+    // await FlutterSession().set("isBooked", false);
+    if (flag==0 && await FlutterSession().get("isBooked")==false) {
+      setState(() {
+        flag = 1;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     if (count == 0) {
@@ -121,6 +126,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
       });
       getHotelDetailsData();
     }
+    // getBookingInformation();
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(),
@@ -140,27 +146,55 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                       return previewImages[index];
                     }),
               ),
-
-              Container(
-                margin: EdgeInsets.only(bottom: 10, top: 10),
-                child: FlatButton(
-                  onPressed: () => _book(context, widget.id),
-                  color: Color(0xFF2F2F2F),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text('BOOK',
-                        style: TextStyle(
-                          letterSpacing: 1.0,
-                          fontSize: 50.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        )),
-                  ),
-                ),
+              FutureBuilder(
+                future: FlutterSession().get("isBooked"),
+                builder: (context, isBooked) {
+                  if (isBooked.hasData == null) {
+                    return Container();
+                  } else {
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 10, top: 10),
+                      child: FlatButton(
+                        onPressed: () => isBooked.data == true ? null : _book(context,widget.id),
+                        color: isBooked.data == true ? Color(0x802F2F2F) : Color(0xFF2F2F2F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text('BOOK',
+                              style: TextStyle(
+                                letterSpacing: 1.0,
+                                fontSize: 50.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                    );
+                  }
+                }
               ),
+              // Container(
+              //     margin: EdgeInsets.only(bottom: 10, top: 10),
+              //     child: flag==0 ? SizedBox() : FlatButton(
+              //       onPressed: () => _book(context),
+              //       color: Color(0xFF2F2F2F),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(10.0),
+              //       ),
+              //       child: Padding(
+              //         padding: EdgeInsets.all(10.0),
+              //         child: Text('BOOK',
+              //             style: TextStyle(
+              //               letterSpacing: 1.0,
+              //               fontSize: 50.0,
+              //               fontWeight: FontWeight.w400,
+              //               color: Colors.white,
+              //             )),
+              //       ),
+              //     ),
+              //   )
             ],
           ),
         ),

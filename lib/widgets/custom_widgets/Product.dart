@@ -42,7 +42,7 @@ class _ProductState extends State<Product> with AutomaticKeepAliveClientMixin<Pr
             flex: 2,
             child: CircleAvatar(
               radius: 30,
-              backgroundImage: AssetImage(this.widget.imageLocation),
+              backgroundImage: NetworkImage(this.widget.imageLocation),
             )
           ),
           Expanded(

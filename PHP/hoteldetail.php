@@ -7,7 +7,7 @@
 
         $id = $_GET['id'];
         $sql = "SELECT image FROM preview_images WHERE hotel_id='{$id}'";
-
+        
         $result = $conn->query($sql);
         if ($result->num_rows > 0){
             while ($row = $result->fetch_assoc()){

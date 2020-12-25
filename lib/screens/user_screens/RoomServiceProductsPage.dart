@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../api.dart';
 import '../../widgets/widgets.dart';
 
 class RoomServiceProductsPage extends StatelessWidget {
@@ -75,7 +79,31 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
       }
     }
   }
+  void checkout() async {
+    String apiUrl = Api.cart;
+    final Map<String,Map<String,String>> cartContents = {};
+    for (int i=0 ; i<inCart.lineItems.length ; i++){
+      cartContents[inCart.lineItems[i].product.id.toString()] = {
+        "price": inCart.lineItems[i].product.price.toString(),
+        "quantity": inCart.lineItems[i].quantity.toString(),
+      };
+    }
+    print(cartContents);
+    final userId = await FlutterSession().get("id");
+    final reservationId = await FlutterSession().get("id");
+    var body = json.encode({
+      "user_id": userId,
+      "reservation_id": reservationId,
+      "cart": cartContents
+    });
+    print(body);
+    final res = await http.post(apiUrl, body: body);
+    if (res.statusCode != 200){
+      print("Error: "+res.statusCode.toString());
+    }
+    var data = jsonDecode(res.body);
 
+  }
   @override
   Widget build(BuildContext outContext) {
     return DefaultTabController(
@@ -169,7 +197,9 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
                               margin: EdgeInsets.symmetric(horizontal: 100),
                               child: ElevatedButton(
                                 child: Text("CHECKOUT"),
-                                onPressed: () {},
+                                onPressed: () {
+                                  checkout();
+                                },
                               ),
                             );
                           }

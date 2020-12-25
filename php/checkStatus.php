@@ -17,6 +17,7 @@
         if(isset($result) && $result != null){
             $data['msg'] = "SUCCESS";
             $data['hotel_id'] = $result['hotel_id'];
+            $data['reservation_id'] = $result['id'];
             echo json_encode($data);
         }else{
             $data['msg'] = "ERROR";
