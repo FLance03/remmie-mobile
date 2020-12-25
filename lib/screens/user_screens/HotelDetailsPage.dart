@@ -26,7 +26,7 @@ class HotelDetailsPage extends StatefulWidget {
   _HotelDetailsPageState createState() => _HotelDetailsPageState();
 }
 class _HotelDetailsPageState extends State<HotelDetailsPage> {
-  int count = 0,flag = 0;
+  int count = 0;
   bool isBooked = false;
   HotelItem hotelItem;
   List<Widget> previewImages = [
@@ -104,13 +104,24 @@ void getHotelDetailsData() async{
       print("We were not able to successfully download the json data.");
     }
   }
-  void getBookingInformation() async {
-    // await FlutterSession().set("isBooked", false);
-    if (flag==0 && await FlutterSession().get("isBooked")==false) {
-      setState(() {
-        flag = 1;
-      });
+  Future<bool> getBookingInformation() async {
+    await FlutterSession().set("id",1);
+    final userId = await FlutterSession().get("id");
+    final String apiUrl = Api.checkStatus;
+    final body = json.encode({
+      'userid': userId.toString(),
+    });
+    print(apiUrl+body);
+    final response = await http.post(apiUrl,body:body);
+    bool retVal = true;
+  
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      if (data['reservation_id'] == null){
+        retVal = false;
+      }
     }
+    return retVal;
   }
   @override
   Widget build(BuildContext context) {
@@ -120,7 +131,7 @@ void getHotelDetailsData() async{
       });
       getHotelDetailsData();
     }
-    // getBookingInformation();
+    getBookingInformation();
     return SafeArea(
       child: 
       Scaffold(
@@ -143,32 +154,62 @@ void getHotelDetailsData() async{
                 ),
               ),
               FutureBuilder(
-                future: FlutterSession().get("isBooked"),
+                future: getBookingInformation(),
                 builder: (context, isBooked) {
-                  if (isBooked.hasData == null) {
-                    return Container();
-                  } else {
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 10, top: 10),
-                      child: FlatButton(
-                        onPressed: () => isBooked.data == true ? null : _book(context,widget.id),
-                        color: isBooked.data == true ? Color(0x802F2F2F) : Color(0xFF2F2F2F),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text('BOOK',
-                              style: TextStyle(
-                                letterSpacing: 1.0,
-                                fontSize: 50.0,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                              )),
+                  List<Widget> children;
+                  if (isBooked.hasData) {
+                    children =[
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10, top: 10),
+                        child: FlatButton(
+                          onPressed: () => isBooked.data == true ? null : _book(context,widget.id),
+                          color: isBooked.data == true ? Color(0x802F2F2F) : Color(0xFF2F2F2F),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text('BOOK',
+                                style: TextStyle(
+                                  letterSpacing: 1.0,
+                                  fontSize: 50.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                )),
+                          ),
                         ),
                       ),
-                    );
+                    ];
+                  } else if (isBooked.hasError) {
+                    children = <Widget>[
+                      Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 60,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text('Error: ${isBooked.error}'),
+                      )
+                    ];
+                  } else {
+                    children = <Widget>[
+                      SizedBox(
+                        child: CircularProgressIndicator(),
+                        width: 60,
+                        height: 60,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 16),
+                        child: Text('Awaiting result...'),
+                      )
+                    ];
                   }
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: children,
+                    ),
+                  );
                 }
               ),
               // Container(

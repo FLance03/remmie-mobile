@@ -49,18 +49,19 @@ class _TabsState extends State<Tabs> {
   List<Widget> beverages = [];
   int count = 0;
 
-  void getProductsData() async {
+  Future<List<Widget>> getProductsData(String productType) async {
     final String api = Api.tab;
     final response = await http.get(api);
+    List<Widget> retVal = [];
 
     if (response.statusCode == 200) {
       List productData = json.decode(response.body);
       print(productData);
       List <ProductsDB> products = productData.map((product) => new ProductsDB.fromJson(product)).toList();
       for (int i=0 ; i<products.length ; i++){
-        if (products[i].type == 'food'){
-          setState(() {
-            foods.add(Product(
+        if (productType == products[i].type){
+          retVal.add(
+            Product(
               id: products[i].id,
               name: products[i].name,
               imageLocation: products[i].imageUrl,
@@ -68,155 +69,101 @@ class _TabsState extends State<Tabs> {
               description: products[i].description,
               stock: products[i].stock,
               updateHandle: this.widget.updateHandle,
-            ));
-          });
-        }else if (products[i].type == 'beverage'){
-          setState(() {
-            beverages.add(Product(
-              id: products[i].id,
-              name: products[i].name,
-              imageLocation: products[i].imageUrl,
-              price: products[i].price,
-              description: products[i].description,
-              stock: products[i].stock,
-              updateHandle: this.widget.updateHandle,
-            ));
-          });
+            )
+          );
         }
       }
     }
+    return retVal;
   }
   @override
   Widget build(BuildContext outContext) {
-    if (count == 0){
-      setState(() {
-        count++;
-      });
-      getProductsData();
-    }
     return displayProducts();
   }
   Widget displayProducts() {
     Widget retVal;
 
     if (this.widget.section == 'Foods') {
-      retVal = ListView(
-        children: foods +
-          [SizedBox(height:50)], // Placeholder since DraggableScrollableSheet may cover the last product
-          // Product(
-          //   id: 1,
-          //   name: 'Grilled Burgers',
-          //   imageLocation: 'assets/grilled_burger.PNG',
-          //   price: 185.5,
-          //   description: '2 Patty Burger',
-          //   stock: 7,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 2,
-          //   name: 'Fries',
-          //   imageLocation: 'assets/fries.PNG',
-          //   price: 85.99,
-          //   description: 'Includes Ketchup',
-          //   stock: 5,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 3,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 10,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 11,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 12,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 12,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 12,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 12,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 12,
-          //   name: 'Noodles',
-          //   imageLocation: 'assets/noodles.PNG',
-          //   price: 70.50,
-          //   description: 'Its Long',
-          //   stock: 10,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          
+      retVal = FutureBuilder(
+        future: getProductsData('food'),
+        builder: (context, foods) {
+          List<Widget> children;
+          if (foods.hasData) {
+            children = foods.data;
+          } else if (foods.hasError) {
+            children = <Widget>[
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${foods.error}'),
+              )
+            ];
+          } else {
+            children = <Widget>[
+              SizedBox(
+                child: CircularProgressIndicator(),
+                width: 60,
+                height: 60,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              )
+            ];
+          }
+          return ListView(
+            children: children,
+          );
+
+        }
+        // (
+        //   children: foods +
+        //     [SizedBox(height:50)], // Placeholder since DraggableScrollableSheet may cover the last product
+            
+            
+        // ),
       );
     }else {
-      retVal = ListView(
-        children: beverages + 
-          [SizedBox(height:50)], // Placeholder since DraggableScrollableSheet may cover the last product
-          // Product(
-          //   id: 4,
-          //   name: 'Pepsi',
-          //   imageLocation: 'assets/pepsi.png',
-          //   price: 40.0,
-          //   description: 'Black',
-          //   stock: 12,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
-          // Product(
-          //   id: 5,
-          //   name: 'Royal',
-          //   imageLocation: 'assets/royal.png',
-          //   price: 30.0,
-          //   description: 'Orange',
-          //   stock: 15,
-          //   updateHandle: this.widget.updateHandle,
-          // ),
+      retVal = FutureBuilder(
+        future: getProductsData('beverage'),
+        builder: (context, beverages) {
+          List<Widget> children;
+          if (beverages.hasData) {
+            children = beverages.data;
+          } else if (beverages.hasError) {
+            children = <Widget>[
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${beverages.error}'),
+              )
+            ];
+          } else {
+            children = <Widget>[
+              SizedBox(
+                child: CircularProgressIndicator(),
+                width: 60,
+                height: 60,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              )
+            ];
+          }
+          return ListView(
+            children: children,
+          );
+
+        }
       );
     }
     return retVal;
