@@ -1,5 +1,8 @@
 import 'package:flutter_session/flutter_session.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../api.dart';
 import '../../widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,16 +16,34 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  //create function and place it inside future builder that checksStatus every time page is opened
+  checkStatus() async {
+    String apiUrl = Api.checkStatus;
+    var body = json.encode({"userid": await FlutterSession().get("id")});
+    var res = await http.post(apiUrl, body: body);
+    var data = jsonDecode(res.body);
+    bool flag;
+    if (data['msg'] == "SUCCESS") {
+      print("USER IS BOOKED");
+      flag = true;
+    } else {
+      print("USER IS NOT BOOKED");
+      flag = false;
+    }
+    return flag;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FutureBuilder( //Keeps rebuilding until the future session variable loads
-        future: FlutterSession().get("isBooked"),
-        builder: (context, isBooked) {
-          if (isBooked.hasData == null) {
+      child: FutureBuilder(
+        //Keeps rebuilding until the future session variable loads
+        future: checkStatus(),
+        builder: (context, flag) {
+          if (flag.hasData == null) {
             return Container();
           } else {
-            if (isBooked.data == true) {
+            if (flag.data == true) {
               return Scaffold(
                 appBar: AppBar(
                   title: Text('remmie',
@@ -73,7 +94,15 @@ class _HomePageState extends State<HomePage> {
             } else {
               return SafeArea(
                 child: Scaffold(
-                  appBar: CustomAppBar(),
+                  appBar: AppBar(
+                    title: Text('remmie',
+                        style: TextStyle(
+                          letterSpacing: 1.0,
+                          color: Colors.black,
+                        )),
+                    centerTitle: true,
+                    leading: new Container(),
+                  ),
                   resizeToAvoidBottomPadding: false,
                   body: DashboardCard(
                     status: "NOT BOOKED",
@@ -91,7 +120,5 @@ class _HomePageState extends State<HomePage> {
 }
 
 _roomservice(BuildContext context) async {
-  dynamic sessionValue = await FlutterSession().get("firstname");
-  print(sessionValue);
-  // Navigator.pushNamed(context, '/RoomServiceMain');
+  Navigator.pushNamed(context, '/RoomServiceMain');
 }

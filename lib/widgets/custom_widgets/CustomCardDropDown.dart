@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class CustomCardDropDown extends StatefulWidget {
   final double width;
   final double height;
+  TextEditingController controller;
 
-  CustomCardDropDown({@required this.width, @required this.height});
+  CustomCardDropDown({@required this.width, @required this.height, this.controller});
 
   @override
   _CustomCardDropDownState createState() => _CustomCardDropDownState();
@@ -12,9 +14,10 @@ class CustomCardDropDown extends StatefulWidget {
 
 class _CustomCardDropDownState extends State<CustomCardDropDown> {
   String selected = 'VISA';
-
+  
   @override
   Widget build(BuildContext context) {
+    widget.controller.text = selected;
     return Container(
       width: widget.width,
       height: widget.height,
@@ -60,6 +63,7 @@ class _CustomCardDropDownState extends State<CustomCardDropDown> {
                   setState(() {
                     selected = newValue;
                   });
+                  widget.controller.text = selected;
                 },
                 value: selected,
                 isExpanded: true,

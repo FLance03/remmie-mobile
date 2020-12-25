@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 
 class CompletePage extends StatelessWidget {
+  final String dateCheckin;
+  final String dateCheckout;
+  CompletePage({@required this.dateCheckin, @required this.dateCheckout});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,7 +47,7 @@ class CompletePage extends StatelessWidget {
                 ),
               ),
               Text('Date of Stay:'),
-              Center(child: Text('September 01, 2020 - September 07, 2020')),
+              Center(child: Text(this.dateCheckin + ' - ' + this.dateCheckout)),
               RaisedButton(
                 onPressed: () => _home(context),
                 color: Colors.white,

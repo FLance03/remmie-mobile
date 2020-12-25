@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../api.dart';
 import '../../widgets/widgets.dart';
 
+class Room {
+  String name;
+  double price;
+  Room({this.name, this.price});
+}
+
 class BookingPage extends StatefulWidget {
-  const BookingPage({Key key}) : super(key: key);
+  final int id;
+
+  const BookingPage({Key key, @required this.id}) : super(key: key);
 
   @override
   _BookingPageState createState() => _BookingPageState();
@@ -10,29 +22,57 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage>
     with SingleTickerProviderStateMixin {
-  int selectedRadioTile, selectedRadio, roomCnt;
-  double totalPrice;
-  
+  //Utility Variables
+  int i, selectedRadioTile, selectedRadio, roomCnt;
+  bool flag;
+
+  //Controllers
+  TextEditingController _room = TextEditingController(text: 'Superior');
+  TextEditingController _datein = TextEditingController(text: 'Pick a Date');
+  TextEditingController _dateout = TextEditingController(text: 'Pick a Date');
+  TextEditingController _card = TextEditingController(text: 'VISA');
+
   TextEditingController _name = TextEditingController();
   TextEditingController _cardnumber = TextEditingController();
 
-  bool flag;
+  TabController _tabController;
 
+  //Page Tabs
   final List<Tab> bookingTabs = <Tab>[
     Tab(text: 'Details'),
     Tab(text: 'Payment Method'),
   ];
 
-  TabController _tabController;
+  //Room Price Values from Assumed Hotel Database
+  var roomnames = [
+    'Superior',
+    'Business Class',
+    'Executive Suite',
+    'Holiday Suite',
+  ];
+
+  var roomprices = [
+    100.0,
+    200.0,
+    300.0,
+    400.0,
+  ];
+
+  var room = new Room();
+  var roomList = List<Room>();
 
   @override
   void initState() {
-    super.initState();
+    for (i = 0; i < roomnames.length; i++) {
+      room.name = roomnames[i];
+      room.price = roomprices[i];
+      roomList.add(room);
+    }
     selectedRadio = 0;
     selectedRadioTile = 1;
     roomCnt = 1;
-    totalPrice = 0.0;
     _tabController = TabController(vsync: this, length: 2);
+    super.initState();
   }
 
   @override
@@ -52,11 +92,7 @@ class _BookingPageState extends State<BookingPage>
   }
 
   _increment() {
-
-
     //Add value to totalPrice based on room type
-
-
     setState(() {
       roomCnt++;
     });
@@ -64,12 +100,51 @@ class _BookingPageState extends State<BookingPage>
 
   _decrement() {
     //Decrease value from totalPrice based on room type
+    setState(() {
+      roomCnt--;
+    });
+  }
 
-    if (roomCnt > 1) {
-      setState(() {
-        roomCnt--;
-      });
+  _confirm(BuildContext context) async {
+    //pass data process
+    // print('hello worldsssss-------------------------------');
+    // print(roomCnt);
+    // print(_room.text);
+    // print(_datein.text);
+    // print(_dateout.text);
+    // print(_card.text);
+    // print(_name.text);
+    // print(_cardnumber.text);
+    // print(selectedRadioTile);
+    // print(widget.id);
+    // print('goodbye worldsssss-------------------------------');
+
+    print('Booking...');
+    String apiUrl = Api.book;
+    var body = json.encode({
+      "user_id": await FlutterSession().get("id"),
+      "hotel_id": widget.id,
+      "room_type": _room.text,
+      "room_number": 412,
+      "room_floor": 4,
+      "room_price": 300.0,
+      "payment_option": (selectedRadioTile == 1) ? 'card' : 'cash',
+      "date_checkin": _datein.text,
+      "date_checkout": _dateout.text,
+    });
+    var res = await http.post(apiUrl, body: body);
+    var data = jsonDecode(res.body);
+
+    if (data['msg'] == 'SUCCESS') {
+      print('Successfully booked!');
+    } else {
+      print('Woops! Booking unsuccessful.');
     }
+
+    Navigator.pushNamed(context, '/Complete', arguments: {
+      "date_checkin": _datein.text,
+      "date_checkout": _dateout.text
+    });
   }
 
   @override
@@ -160,16 +235,21 @@ class _BookingPageState extends State<BookingPage>
                         CustomRoomDropDown(
                           width: 290.0,
                           height: 60.0,
+                          controller: _room,
                         ),
                         CustomDatePicker(
-                            width: 290.0,
-                            height: 60.0,
-                            label: 'Check-In Date: '),
+                          width: 290.0,
+                          height: 60.0,
+                          label: 'Check-In Date: ',
+                          controller: _datein,
+                        ),
                         CustomDatePicker(
-                            width: 290.0,
-                            height: 60.0,
-                            label: 'Check-Out Date: '),
-                        Text('Total: Php ' + totalPrice.toString()),
+                          width: 290.0,
+                          height: 60.0,
+                          label: 'Check-Out Date: ',
+                          controller: _dateout,
+                        ),
+                        // Text('Total: Php ' + totalPrice.toString()),
                         RaisedButton(
                           onPressed: () => _next(),
                           color: Colors.white,
@@ -203,9 +283,6 @@ class _BookingPageState extends State<BookingPage>
                           title: Text("Credit Card"),
                           // subtitle: Text("Radio 1 Subtitle"),
                           onChanged: (val) {
-                            if (val == 1) {
-                              print('$val');
-                            }
                             setSelectedRadioTile(val);
                           },
                           activeColor: Color(0xFF2F2F2F),
@@ -225,22 +302,21 @@ class _BookingPageState extends State<BookingPage>
                                   CustomCardDropDown(
                                     width: 280.0,
                                     height: 60.0,
+                                    controller: _card,
                                   ),
                                   Container(
                                     child: Column(
                                       children: <Widget>[
                                         IconTextField(
-                                          hintText: "Name",
-                                          icon: Icons.person,
-                                          vertical: 20.0,
-                                          controller: _name
-                                        ),
+                                            hintText: "Name",
+                                            icon: Icons.person,
+                                            vertical: 20.0,
+                                            controller: _name),
                                         IconTextField(
-                                          hintText: "Card Number",
-                                          icon: Icons.credit_card,
-                                          vertical: 20.0,
-                                          controller: _cardnumber
-                                        ),
+                                            hintText: "Card Number",
+                                            icon: Icons.credit_card,
+                                            vertical: 20.0,
+                                            controller: _cardnumber),
                                       ],
                                     ),
                                   ),
@@ -253,31 +329,31 @@ class _BookingPageState extends State<BookingPage>
                               child: Opacity(
                                 opacity: 0.60,
                                 child: Container(
-                                  child: Column(
-                                    children: <Widget>[
-                                      CustomCardDropDown(
-                                        width: 280.0,
-                                        height: 60.0,
-                                      ),
-                                      Container(
-                                        child: Column(
-                                          children: <Widget>[
-                                            IconTextField(
-                                              hintText: "Name",
-                                              icon: Icons.person,
-                                              vertical: 20.0,
-                                            ),
-                                            IconTextField(
-                                              hintText: "Card Number",
-                                              icon: Icons.credit_card,
-                                              vertical: 20.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    // child: Column(
+                                    //   children: <Widget>[
+                                    //     CustomCardDropDown(
+                                    //       width: 280.0,
+                                    //       height: 60.0,
+                                    //     ),
+                                    //     Container(
+                                    //       child: Column(
+                                    //         children: <Widget>[
+                                    //           IconTextField(
+                                    //             hintText: "Name",
+                                    //             icon: Icons.person,
+                                    //             vertical: 20.0,
+                                    //           ),
+                                    //           IconTextField(
+                                    //             hintText: "Card Number",
+                                    //             icon: Icons.credit_card,
+                                    //             vertical: 20.0,
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    ),
                               ),
                             );
                           }
@@ -322,8 +398,4 @@ class _BookingPageState extends State<BookingPage>
       ),
     );
   }
-}
-
-_confirm(BuildContext context) {
-  Navigator.pushNamed(context, '/Complete');
 }
