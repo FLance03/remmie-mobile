@@ -128,7 +128,7 @@ class _BookingPageState extends State<BookingPage>
       "room_number": 412,
       "room_floor": 4,
       "room_price": 300.0,
-      "payment_option": (selectedRadioTile == 1)? 'card' : 'cash',
+      "payment_option": (selectedRadioTile == 1) ? 'card' : 'cash',
       "date_checkin": _datein.text,
       "date_checkout": _dateout.text,
     });
@@ -141,7 +141,10 @@ class _BookingPageState extends State<BookingPage>
       print('Woops! Booking unsuccessful.');
     }
 
-    Navigator.pushNamed(context, '/Complete', arguments: {"date_checkin": _datein.text, "date_checkout": _dateout.text});
+    Navigator.pushNamed(context, '/Complete', arguments: {
+      "date_checkin": _datein.text,
+      "date_checkout": _dateout.text
+    });
   }
 
   @override
