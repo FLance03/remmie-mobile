@@ -38,7 +38,7 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
-        screen = RoomServiceProductsPage();
+        screen = HomePage();
         break;
       case Login:
         screen = LoginPage();

@@ -205,7 +205,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                       ),
                       const Padding(
                         padding: EdgeInsets.only(top: 16),
-                        child: Text('Awaiting result...'),
+                        child: Text('Checking Booking Information...'),
                       )
                     ];
                   }

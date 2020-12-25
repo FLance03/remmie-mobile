@@ -1,10 +1,10 @@
 DROP DATABASE remmie;
 CREATE DATABASE remmie;
-CREATE TABLE remmie.users(id BIGINT PRIMARY KEY AUTO_INCREMENT, email VARCHAR(255), password VARCHAR(255), user_type VARCHAR(255),first_name VARCHAR(255), last_name VARCHAR(255),  date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL);
+CREATE TABLE remmie.users(id BIGINT PRIMARY KEY AUTO_INCREMENT, hotel_id BIGINT, first_name VARCHAR(255), last_name VARCHAR(255), user_type TINYINT, email VARCHAR(255), password VARCHAR(255),  date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL);
 CREATE TABLE remmie.contact_informations(id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT, information VARCHAR(255) UNIQUE, contact_type VARCHAR(255), date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(user_id) REFERENCES remmie.users(id));
 CREATE TABLE remmie.establishments(id BIGINT PRIMARY KEY AUTO_INCREMENT, company_name VARCHAR(255),contact_information VARCHAR(255), is_partnered TINYINT, date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL);
 CREATE TABLE remmie.hotels(id BIGINT PRIMARY KEY AUTO_INCREMENT, establishment_id BIGINT, name VARCHAR(255), star INT, rating FLOAT, country VARCHAR(255), province VARCHAR(255), city VARCHAR(255), street VARCHAR(255), description TEXT, image VARCHAR(255), contact_information VARCHAR(255), date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(establishment_id) REFERENCES remmie.establishments(id));
-CREATE TABLE remmie.reservations(id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT, hotel_id BIGINT, room_type VARCHAR(255), room_number INT, room_floor INT, room_price INT, payment_option VARCHAR(255), date_checkin DATETIME DEFAULT NULL, date_checkout DATETIME DEFAULT NULL, date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(user_id) REFERENCES remmie.users(id),FOREIGN KEY(hotel_id) REFERENCES remmie.hotels(id));
+CREATE TABLE remmie.reservations(id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT, hotel_id BIGINT, room_type VARCHAR(255), room_number INT, room_floor INT, price_per_room FLOAT, payment_option VARCHAR(255), date_checkin DATETIME DEFAULT NULL, date_checkout DATETIME DEFAULT NULL, date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(user_id) REFERENCES remmie.users(id),FOREIGN KEY(hotel_id) REFERENCES remmie.hotels(id));
 CREATE TABLE remmie.room_services(id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id BIGINT, reservation_id BIGINT, service_type TINYINT, time_serviced DATETIME DEFAULT NULL, date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(user_id) REFERENCES remmie.users(id), FOREIGN KEY(reservation_id) REFERENCES remmie.reservations(id));
 CREATE TABLE remmie.announcements(id BIGINT PRIMARY KEY AUTO_INCREMENT, hotel_id BIGINT, title VARCHAR(255) DEFAULT NULL, start_time DATETIME, end_time DATETIME, image VARCHAR(255) DEFAULT NULL, description TEXT, date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(hotel_id) REFERENCES remmie.hotels(id));
 CREATE TABLE remmie.line_items(id BIGINT PRIMARY KEY AUTO_INCREMENT, room_service_id BIGINT, product_id BIGINT, price FLOAT, quantity INT, FOREIGN KEY (room_service_id) REFERENCES remmie.room_services(id));
@@ -12,15 +12,37 @@ CREATE TABLE remmie.notifications(id BIGINT PRIMARY KEY AUTO_INCREMENT, user_id 
 CREATE TABLE remmie.preview_images(id BIGINT PRIMARY KEY AUTO_INCREMENT, hotel_id BIGINT, image VARCHAR(255), date_created DATETIME DEFAULT CURRENT_TIMESTAMP, date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP, date_deleted DATETIME DEFAULT NULL, FOREIGN KEY(hotel_id) REFERENCES remmie.hotels(id));
 
 
+
 INSERT INTO remmie.establishments(company_name,is_partnered,contact_information) VALUES('EST',1,'CONT1');
 INSERT INTO remmie.establishments(company_name,is_partnered,contact_information) VALUES('EST2',0,'CONT2');
-INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(1,'HOT1',2,1,'Philippines','Cebu','Cebu City','STR1','DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1','assets/hotel1.jpg','09431234567');
-INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(2,'HOT2',3,2,'Philippines','Manila','Manila City','STR2','DESC2DESC2DESC2DESC2DESC2DESC2DESC2DESC2','assets/hotel1.jpg','09431234567');
-INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(1,'HOT3',4,3,'Philippines','Negros','Negros City','STR3','DESC3DESC3DESC3DESC3DESC3DESC3DESC3DESC3DESC3','assets/hotel2.jpg','09431234567');
-INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(2,'HOT4',5,4,'Philippines','Palawan','Palawan City','STR4','DESC4DESC4DESC4DESC4DESC4DESC4DESC4DESC4DESC4','assets/hotel2.jpg','09431234567');
-INSERT INTO remmie.users(first_name,last_name,user_type,email,password) VALUES('aa','aa','admin','aa.com','aapass');
+INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(1,'HOT1',2,1,'Philippines','Cebu','Cebu City','STR1','DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1DESC1','hotel1.jpg','09431234567');
+INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(2,'HOT2',3,2,'Philippines','Manila','Manila City','STR2','DESC2DESC2DESC2DESC2DESC2DESC2DESC2DESC2','hotel1.jpg','09431234567');
+INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(1,'HOT3',4,3,'Philippines','Negros','Negros City','STR3','DESC3DESC3DESC3DESC3DESC3DESC3DESC3DESC3DESC3','hotel2.jpg','09431234567');
+INSERT INTO remmie.hotels(establishment_id,name,star,rating,country,province,city,street,description,image,contact_information) VALUES(2,'HOT4',5,4,'Philippines','Palawan','Palawan City','STR4','DESC4DESC4DESC4DESC4DESC4DESC4DESC4DESC4DESC4','hotel2.jpg','09431234567');
+
+INSERT INTO remmie.preview_images(hotel_id,image) VALUES(1,'room2.jpg');
+INSERT INTO remmie.preview_images(hotel_id,image) VALUES(1,'room4.jpg');
+INSERT INTO remmie.preview_images(hotel_id,image) VALUES(1,'service2.jpg');
+INSERT INTO remmie.preview_images(hotel_id,image) VALUES(3,'room3.jpg');
+INSERT INTO remmie.preview_images(hotel_id,image) VALUES(3,'fireworks.jpg');
 
 
+INSERT INTO remmie.users(first_name,last_name,user_type,email,password) VALUES('hi','hi','guest','hi','hi');
+
+INSERT INTO remmie.notifications(user_id,type,message) VALUES('1','first','this is first');
+INSERT INTO remmie.notifications(user_id,type,message) VALUES('1','second','this is second');
+INSERT INTO remmie.notifications(user_id,type,message) VALUES('1','third','this is second');
+
+
+
+INSERT INTO remmie.reservations(user_id,hotel_id,room_type,room_number,room_floor,price_per_room,payment_option) VALUES(1,1,'deluxe',20,3,500.30,'cash')
+
+
+
+INSERT INTO remmie.announcements(hotel_id,title,image,description) VALUES(1,'title1','fireworks.jpg','description1');
+INSERT INTO remmie.announcements(hotel_id,title,image,description) VALUES(1,'title2','room1.jpg','description2');
+INSERT INTO remmie.announcements(hotel_id,title,image,description) VALUES(2,'title2','room2.jpg','description2');
+INSERT INTO remmie.announcements(hotel_id,title,image,description) VALUES(2,'title3','room3.jpg','description3');
 
 
 

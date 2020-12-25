@@ -111,7 +111,7 @@ class _TabsState extends State<Tabs> {
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
+                child: Text('Loading products data...'),
               )
             ];
           }
@@ -155,7 +155,7 @@ class _TabsState extends State<Tabs> {
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
+                child: Text('Loading products data...'),
               )
             ];
           }

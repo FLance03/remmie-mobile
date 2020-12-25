@@ -1,5 +1,5 @@
 class Api {
-  static String ipaddress = "192.168.1.9";
+  static String ipaddress = "192.168.0.59";
   static String address = "http://" + ipaddress;
   static String imageRoute = "/flutter/remmie/assets/";
   static String login = address + "/flutter/remmie/php/login.php";
@@ -13,5 +13,6 @@ class Api {
   static String tab = address + "/flutter/remmie/php/tab.php";
   static String roomcleaning = address + "/flutter/remmie/php/roomcleaning.php";
   static String cart = address + "/flutter/remmie/php/cart.php";
+  static String announcementlist = address + "/flutter/remmie/php/announcementlist.php";
 }
 

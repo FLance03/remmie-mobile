@@ -53,10 +53,12 @@ class HomeCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(description,
-                            style: TextStyle(
-                              fontSize: 12,
-                            )),
+                        description!=null
+                            ?Text(description,
+                              style: TextStyle(
+                                fontSize: 12,
+                              ))
+                            : Container(),
                         subDescription != null
                             ? Text(subDescription,
                                 style: TextStyle(

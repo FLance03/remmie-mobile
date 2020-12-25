@@ -5,6 +5,7 @@
         $data = array();
         $json = file_get_contents("php://input");
         $post = json_decode($json, true);
+        
         $userid = $post['userid'];
         
         $sql = "SELECT * FROM reservations WHERE user_id='$userid' "; //where current date is less than 
