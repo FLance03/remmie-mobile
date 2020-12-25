@@ -3,8 +3,8 @@ import 'screens/screens.dart';
 
 //Screens as String Variables
 const TestRoute = '/';
-// const Login = '/Login';
-const Login = '/';
+const Login = '/Login';
+// const Login = '/';
 const Signup = '/Signup';
 const Home = '/Home';
 const Hotels = '/Hotels';
@@ -37,7 +37,7 @@ RouteFactory _routes() {
     Widget screen;
     switch (settings.name) {
       case TestRoute:
-        screen = HotelsPage();
+        screen = RoomServiceProductsPage();
         break;
       case Login:
         screen = LoginPage();
@@ -45,9 +45,9 @@ RouteFactory _routes() {
       case Signup:
         screen = SignupPage();
         break;
-      // case Home:
-      //   screen = HomePage();
-      //   break;
+      case Home:
+        screen = HomePage();
+        break;
       case Hotels:
         screen = HotelsPage();
         break;

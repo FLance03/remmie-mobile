@@ -120,7 +120,7 @@ void getHotelDetailsData() async{
       });
       getHotelDetailsData();
     }
-    getBookingInformation();
+    // getBookingInformation();
     return SafeArea(
       child: 
       Scaffold(
@@ -142,26 +142,55 @@ void getHotelDetailsData() async{
                   } 
                 ),
               ),
-              Container(
-                  margin: EdgeInsets.only(bottom: 10, top: 10),
-                  child: flag==0 ? SizedBox() : FlatButton(
-                    onPressed: () => _book(context),
-                    color: Color(0xFF2F2F2F),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text('BOOK',
-                          style: TextStyle(
-                            letterSpacing: 1.0,
-                            fontSize: 50.0,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          )),
-                    ),
-                  ),
-                )
+              FutureBuilder(
+                future: FlutterSession().get("isBooked"),
+                builder: (context, isBooked) {
+                  if (isBooked.hasData == null) {
+                    return Container();
+                  } else {
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 10, top: 10),
+                      child: FlatButton(
+                        onPressed: () => isBooked.data == true ? null : _book(context,widget.id),
+                        color: isBooked.data == true ? Color(0x802F2F2F) : Color(0xFF2F2F2F),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text('BOOK',
+                              style: TextStyle(
+                                letterSpacing: 1.0,
+                                fontSize: 50.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                    );
+                  }
+                }
+              ),
+              // Container(
+              //     margin: EdgeInsets.only(bottom: 10, top: 10),
+              //     child: flag==0 ? SizedBox() : FlatButton(
+              //       onPressed: () => _book(context),
+              //       color: Color(0xFF2F2F2F),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(10.0),
+              //       ),
+              //       child: Padding(
+              //         padding: EdgeInsets.all(10.0),
+              //         child: Text('BOOK',
+              //             style: TextStyle(
+              //               letterSpacing: 1.0,
+              //               fontSize: 50.0,
+              //               fontWeight: FontWeight.w400,
+              //               color: Colors.white,
+              //             )),
+              //       ),
+              //     ),
+              //   )
             ],
           ),
         ),
@@ -172,6 +201,6 @@ void getHotelDetailsData() async{
   }
 }
 
-_book(BuildContext context){
-  Navigator.pushNamed(context, '/Booking');
+_book(BuildContext context,int id){
+  Navigator.pushNamed(context, '/Booking',arguments:{"id":id});
 }
