@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../../api.dart';
 import '../../widgets/widgets.dart';
-
 
 class AnnouncementDetailsPageStateless extends StatelessWidget {
   final String imageUrl, description;
 
-  AnnouncementDetailsPageStateless({this.imageUrl,this.description});
+  AnnouncementDetailsPageStateless({this.imageUrl, this.description});
 
-  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: 
-      Scaffold(
+      child: Scaffold(
         appBar: CustomAppBar(),
         body: ListView(
           children: [
             Column(
               children: [
                 Container(
-                  child: imageUrl==null ? null : Image.network(
-                    Api.address + Api.imageRoute + imageUrl,
-                    height: 300,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fill,
-                  ),
+                  child: imageUrl == null
+                      ? null
+                      : Image.network(
+                          Api.address + Api.imageRoute + imageUrl,
+                          height: 300,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.fill,
+                        ),
                   // child: Image.asset(
                   //   'assets/grilled_burger.PNG',
                   //   height: 300,
@@ -58,10 +54,12 @@ class AnnouncementDetailsPageStateless extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: description==null ? Text('') : Text(
-                    description,
-                    textAlign: TextAlign.justify,
-                  ),
+                  child: description == null
+                      ? Text('')
+                      : Text(
+                          description,
+                          textAlign: TextAlign.justify,
+                        ),
                 ),
               ],
             ),

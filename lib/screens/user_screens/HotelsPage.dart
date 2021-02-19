@@ -117,6 +117,5 @@ Future<List<Hotels>> getHotelData() async {
 }
 
 _hoteldetails(BuildContext context, int id) {
-  
   Navigator.pushNamed(context, '/HotelDetails', arguments: {"id": id});
 }

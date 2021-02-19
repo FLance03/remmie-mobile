@@ -1,63 +1,67 @@
-import 'package:Remmie/screens/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../../api.dart';
 import '../../widgets/widgets.dart';
 
 class Announcements {
-  String imageUrl,description;
+  String imageUrl, description;
 
   Announcements({
     this.imageUrl,
     this.description,
   });
 }
+
 class AnnouncementDetailsPage extends StatefulWidget {
   final int id;
 
   AnnouncementDetailsPage({@required this.id});
   @override
-  _AnnouncementDetailsPageState createState() => _AnnouncementDetailsPageState();
+  _AnnouncementDetailsPageState createState() =>
+      _AnnouncementDetailsPageState();
 }
+
 class _AnnouncementDetailsPageState extends State<AnnouncementDetailsPage> {
   Announcements data;
 
-  void getAnnouncementData() async{
+  void getAnnouncementData() async {
     final queryParameters = {
       'id': widget.id.toString(),
     };
-    
-    final uri = Uri.http('192.168.0.59', '/flutter/remmie/php/announcement.php', queryParameters);
+
+    final uri = Uri.http('192.168.0.59', '/flutter/remmie/php/announcement.php',
+        queryParameters);
     final response = await http.get(uri);
-    
+
     data = new Announcements();
     if (response.statusCode == 200) {
       var announcementData = json.decode(response.body);
 
-      if (announcementData['success'] == 0){
-        setState((){
+      if (announcementData['success'] == 0) {
+        setState(() {
           this.data = null;
         });
-      }else {
-        setState((){
+      } else {
+        setState(() {
           this.data.imageUrl = announcementData['imageUrl'];
           this.data.description = announcementData['description'];
         });
       }
-    } else{
+    } else {
       print("We were not able to successfully download the json data.");
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    if (data == null){
+    if (data == null) {
       getAnnouncementData();
     }
-    return data==null ? AnnouncementDetailsPageStateless() : AnnouncementDetailsPageStateless(
-      imageUrl: data.imageUrl,
-      description: data.description,
-    );
+    return data == null
+        ? AnnouncementDetailsPageStateless()
+        : AnnouncementDetailsPageStateless(
+            imageUrl: data.imageUrl,
+            description: data.description,
+          );
   }
 }

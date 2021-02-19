@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../api.dart';
@@ -35,57 +34,57 @@ class _SignupPageState extends State<SignupPage> {
     String email = _email.text;
     String password = _password.text;
     String confirmPassword = _confirmPassword.text;
-    if (firstName == ''){
+    if (firstName == '') {
       setState(() {
         reportFirst = 'This field is required';
       });
       isOkay = false;
-    }else {
+    } else {
       setState(() {
         reportFirst = '';
       });
     }
-    if (lastName == ''){
+    if (lastName == '') {
       setState(() {
         reportLast = 'This field is required';
       });
       isOkay = false;
-    }else {
+    } else {
       setState(() {
         reportLast = '';
       });
     }
-    if (email == ''){
+    if (email == '') {
       setState(() {
         reportEmail = 'This field is required';
       });
       isOkay = false;
-    }else {
+    } else {
       setState(() {
         reportEmail = '';
       });
     }
-    if (password == ''){
+    if (password == '') {
       setState(() {
         reportPass = 'This field is required';
       });
       isOkay = false;
-    }else {
+    } else {
       setState(() {
         reportPass = '';
       });
     }
-    if (confirmPassword == ''){
+    if (confirmPassword == '') {
       setState(() {
         reportConfirmPass = 'This field is required';
       });
       isOkay = false;
-    }else {
+    } else {
       setState(() {
         reportConfirmPass = '';
       });
     }
-    if (password != confirmPassword){
+    if (password != confirmPassword) {
       setState(() {
         reportConfirmPass = 'Passwords does not match';
       });
@@ -93,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
     }
     if (isOkay == true) {
       var body = json.encode({
-        "first_name": firstName, 
+        "first_name": firstName,
         "last_name": lastName,
         "email": email,
         "password": password,
@@ -101,17 +100,18 @@ class _SignupPageState extends State<SignupPage> {
       final res = await http.post(apiUrl, body: body);
       var data = jsonDecode(res.body);
 
-      if (res.statusCode != 200){
-        print("Error: "+res.statusCode.toString());
-      }else if (data['success'] == false) {
+      if (res.statusCode != 200) {
+        print("Error: " + res.statusCode.toString());
+      } else if (data['success'] == false) {
         if (data['errorCode'] == 1) {
           reportEmail = data['error'];
         }
-      }else {
-          Navigator.pushReplacementNamed(context, '/');
-        }
+      } else {
+        Navigator.pushReplacementNamed(context, '/');
+      }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -125,7 +125,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             child: Center(
               child: Container(
-              // padding: EdgeInsets.symmetric(vertical: 50.0),
+                // padding: EdgeInsets.symmetric(vertical: 50.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -211,7 +211,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     RaisedButton(
-                      onPressed: (){
+                      onPressed: () {
                         _back(context);
                       },
                       color: Colors.white,
@@ -244,4 +244,3 @@ _back(BuildContext context) {
   //Refresh screen to load new screens (using page key)
   Navigator.pop(context);
 }
-

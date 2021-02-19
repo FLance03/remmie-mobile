@@ -79,16 +79,17 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
       }
     }
   }
+
   void checkout() async {
     String apiUrl = Api.cart;
-    final Map<String,Map<String,String>> cartContents = {};
-    for (int i=0 ; i<inCart.lineItems.length ; i++){
+    final Map<String, Map<String, String>> cartContents = {};
+    for (int i = 0; i < inCart.lineItems.length; i++) {
       cartContents[inCart.lineItems[i].product.id.toString()] = {
         "price": inCart.lineItems[i].product.price.toString(),
         "quantity": inCart.lineItems[i].quantity.toString(),
       };
     }
-    print(cartContents);
+    // print(cartContents);
     final userId = await FlutterSession().get("id");
     final reservationId = await FlutterSession().get("id");
     var body = json.encode({
@@ -96,14 +97,14 @@ class _FoodsBeveragesState extends State<FoodsBeverages> {
       "reservation_id": reservationId,
       "cart": cartContents
     });
-    print(body);
+    // print(body);
     final res = await http.post(apiUrl, body: body);
-    if (res.statusCode != 200){
-      print("Error: "+res.statusCode.toString());
+    if (res.statusCode != 200) {
+      print("Error: " + res.statusCode.toString());
     }
-    var data = jsonDecode(res.body);
-
+    // var data = jsonDecode(res.body);
   }
+
   @override
   Widget build(BuildContext outContext) {
     return DefaultTabController(

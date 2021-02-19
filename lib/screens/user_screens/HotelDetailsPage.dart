@@ -65,10 +65,12 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
     final queryParameters = {
       'id': widget.id.toString(),
     };
-    
-    Uri uri = Uri.http(Api.ipaddress, '/flutter/remmie/php/hoteldetail.php', queryParameters);
+
+    Uri uri = Uri.http(
+        Api.ipaddress, '/flutter/remmie/php/hoteldetail.php', queryParameters);
     final detailResponse = await http.get(uri);
-    uri = Uri.http(Api.ipaddress, '/flutter/remmie/php/hotel.php', queryParameters);
+    uri = Uri.http(
+        Api.ipaddress, '/flutter/remmie/php/hotel.php', queryParameters);
     final hotelResponse = await http.get(uri);
 
     if (detailResponse.statusCode == 200 && hotelResponse.statusCode == 200) {
@@ -110,25 +112,27 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
       print("We were not able to successfully download the json data.");
     }
   }
+
   Future<bool> getBookingInformation() async {
-    await FlutterSession().set("id",1);
+    await FlutterSession().set("id", 1);
     final userId = await FlutterSession().get("id");
     final String apiUrl = Api.checkStatus;
     final body = json.encode({
       'userid': userId.toString(),
     });
-    print(apiUrl+body);
-    final response = await http.post(apiUrl,body:body);
+    print(apiUrl + body);
+    final response = await http.post(apiUrl, body: body);
     bool retVal = true;
-  
+
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      if (data['reservation_id'] == null){
+      if (data['reservation_id'] == null) {
         retVal = false;
       }
     }
     return retVal;
   }
+
   @override
   Widget build(BuildContext context) {
     if (count == 0) {
@@ -158,64 +162,67 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                     }),
               ),
               FutureBuilder(
-                future: getBookingInformation(),
-                builder: (context, isBooked) {
-                  List<Widget> children;
-                  if (isBooked.hasData) {
-                    children =[
-                      Container(
-                        margin: EdgeInsets.only(bottom: 10, top: 10),
-                        child: FlatButton(
-                          onPressed: () => isBooked.data == true ? null : _book(context,widget.id),
-                          color: isBooked.data == true ? Color(0x802F2F2F) : Color(0xFF2F2F2F),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text('BOOK',
-                                style: TextStyle(
-                                  letterSpacing: 1.0,
-                                  fontSize: 50.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                )),
+                  future: getBookingInformation(),
+                  builder: (context, isBooked) {
+                    List<Widget> children;
+                    if (isBooked.hasData) {
+                      children = [
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10, top: 10),
+                          child: FlatButton(
+                            onPressed: () => isBooked.data == true
+                                ? null
+                                : _book(context, widget.id),
+                            color: isBooked.data == true
+                                ? Color(0x802F2F2F)
+                                : Color(0xFF2F2F2F),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text('BOOK',
+                                  style: TextStyle(
+                                    letterSpacing: 1.0,
+                                    fontSize: 50.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  )),
+                            ),
                           ),
                         ),
+                      ];
+                    } else if (isBooked.hasError) {
+                      children = <Widget>[
+                        Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 60,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text('Error: ${isBooked.error}'),
+                        )
+                      ];
+                    } else {
+                      children = <Widget>[
+                        SizedBox(
+                          child: CircularProgressIndicator(),
+                          width: 60,
+                          height: 60,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Text('Checking Booking Information...'),
+                        )
+                      ];
+                    }
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: children,
                       ),
-                    ];
-                  } else if (isBooked.hasError) {
-                    children = <Widget>[
-                      Icon(
-                        Icons.error_outline,
-                        color: Colors.red,
-                        size: 60,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: Text('Error: ${isBooked.error}'),
-                      )
-                    ];
-                  } else {
-                    children = <Widget>[
-                      SizedBox(
-                        child: CircularProgressIndicator(),
-                        width: 60,
-                        height: 60,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: Text('Checking Booking Information...'),
-                      )
-                    ];
-                  }
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: children,
-                    ),
-                  );
-                }
-              ),
+                    );
+                  }),
               // Container(
               //     margin: EdgeInsets.only(bottom: 10, top: 10),
               //     child: flag==0 ? SizedBox() : FlatButton(
